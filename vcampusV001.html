@@ -7,7 +7,9 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>Information Mathematics for Games</title>
-    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+    <!--[if IE
+      ]><script type="text/javascript" src="excanvas.js"></script
+    ><![endif]-->
     <script src="../three.js"></script>
     <script src="../OrbitControls.js"></script>
     <script type="text/javascript">
@@ -21,7 +23,7 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector('#canvassample')
+          canvas: document.querySelector("#canvassample"),
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
@@ -49,10 +51,17 @@
         //const geometry = new THREE.CylinderGeometry( 0.5, 0.5, 1, 32 );//円柱（台）rtop,rbase,h,dy
         //const geometry = new THREE.TorusGeometry( 0.5, 0.2, 32, 32);//トーラスra,rb
 
-        const material = new THREE.MeshStandardMaterial({ color: 0x800000 }); //第一体育館
+        const material = new THREE.MeshStandardMaterial({ color: 0xff9f80 }); //第一体育館
         const obj = new THREE.Mesh(geometry, material); // 物体（形状,質感）
         obj.position.set(-60 + 11.5, 10, -20 + 5.5); //11.5
         mainground.add(obj); // シーンに物体を追加（接続）
+
+        //第2体育館
+        const geometryG2 = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
+        const materialG2 = new THREE.MeshStandardMaterial({ color: 0x800000 }); //第一体育館
+        const objG2 = new THREE.Mesh(geometryG2, materialG2); // 物体（形状,質感）
+        objG2.position.set(-60 + 11.5, 10, 1 + 5.5); //11.5
+        mainground.add(objG2); // シーンに物体を追加（接続）
 
         const geometry2 = new THREE.PlaneGeometry(200, 200, 1, 1); //平面w,h,dw,dh
         const material2 = new THREE.MeshStandardMaterial({ color: 0xf5deb3 });
@@ -94,7 +103,6 @@
         objd3.position.set(62, 10, -0);
         mainground.add(objd3); // シーンに物体を追加（接続）
 
-        //文学１号館（L1）
         const geometry_L1 = new THREE.BoxGeometry(12.5, 40, 8.3); // 横, 高さ(１３階×４m), 縦
         const material_L1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_L1 = new THREE.Mesh(geometry_L1, material_L1); // 物体（形状,質感）
@@ -165,8 +173,8 @@
 
         function changeScene() {
           // シーン表示の更新処理メソッド
-          //mainground.rotation.x += 0.01; // 物体を回転させる
-          //mainground.rotation.y += 0.01; // 物体を回転させる
+          //obj.rotation.x += 0.01; // 物体を回転させる
+          //obj.rotation.y += 0.01; // 物体を回転させる
           controls.update(); // マウスによる回転制御を反映
           renderer.render(scene, camera); // レンダリング
           requestAnimationFrame(changeScene); // シーン表示を更新
