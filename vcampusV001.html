@@ -7,9 +7,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>Information Mathematics for Games</title>
-    <!--[if IE
-      ]><script type="text/javascript" src="excanvas.js"></script
-    ><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
     <script src="../three.js"></script>
     <script src="../OrbitControls.js"></script>
     <script type="text/javascript">
@@ -23,7 +21,7 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector("#canvassample"),
+          canvas: document.querySelector('#canvassample')
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
@@ -42,6 +40,9 @@
         const ambientlight = new THREE.AmbientLight(0xffffff, 0.4); //環境光(色,強さ)
         scene.add(ambientlight);
 
+        const mainground = new THREE.Group(); // グループを作成
+        scene.add(mainground); // シーンにグループを追加
+
         const geometry = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
         //const geometry = new THREE.SphereGeometry(0.5, 32, 32);//球r,dx,dy
         //const geometry = new THREE.ConeGeometry( 0.5, 1, 32 );//円錐r,h,dy
@@ -51,53 +52,115 @@
         const material = new THREE.MeshStandardMaterial({ color: 0x800000 }); //第一体育館
         const obj = new THREE.Mesh(geometry, material); // 物体（形状,質感）
         obj.position.set(-60 + 11.5, 10, -20 + 5.5); //11.5
-        scene.add(obj); // シーンに物体を追加（接続）
+        mainground.add(obj); // シーンに物体を追加（接続）
 
         const geometry2 = new THREE.PlaneGeometry(200, 200, 1, 1); //平面w,h,dw,dh
         const material2 = new THREE.MeshStandardMaterial({ color: 0xf5deb3 });
         const obj2 = new THREE.Mesh(geometry2, material2); // 2つ目の物体もsceneに付け加えた
         obj2.position.set(0, 1, 0);
         obj2.rotation.x = -Math.PI / 2;
-        scene.add(obj2); // シーンに物体を追加（接続）
+        mainground.add(obj2); // シーンに物体を追加（接続）
 
         const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
         const material0 = new THREE.MeshStandardMaterial({ color: 0x90ee90 });
         const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
         obj0.rotation.x = -Math.PI / 2;
-        scene.add(obj0); // シーンに物体を追加（接続）
+        mainground.add(obj0); // シーンに物体を追加（接続）
 
         const geometryd1 = new THREE.PlaneGeometry(13, 300, 1, 1); //平面w,h,dw,dh
         const materiald1 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
         const objd1 = new THREE.Mesh(geometryd1, materiald1); // 2つ目の物体もsceneに付け加えた
         objd1.position.set(0, 1.2, 0);
         objd1.rotation.x = -Math.PI / 2;
-        scene.add(objd1); // シーンに物体を追加（接続）
+        mainground.add(objd1); // シーンに物体を追加（接続）
 
         const geometryd2 = new THREE.PlaneGeometry(400, 20, 1, 1); //平面w,h,dw,dh
         const materiald2 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
         const objd2 = new THREE.Mesh(geometryd2, materiald2); // 2つ目の物体もsceneに付け加えた
         objd2.position.set(0, 1.2, -31);
         objd2.rotation.x = -Math.PI / 2;
-        scene.add(objd2); // シーンに物体を追加（接続）
+        mainground.add(objd2); // シーンに物体を追加（接続）
 
         const g43 = new THREE.PlaneGeometry(400, 4.5, 1, 27.5); //平面w,h,dw,dh
         const m43 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
         const objRoad43 = new THREE.Mesh(g43, m43); // 2つ目の物体もsceneに付け加えた
         objRoad43.position.set(0, 1.2, 31);
         objRoad43.rotation.x = -Math.PI / 2;
-        scene.add(objRoad43); // シーンに物体を追加（接続）
+        mainground.add(objRoad43); // シーンに物体を追加（接続）
 
         const geometryd3 = new THREE.BoxGeometry(9, 20, 18); //L2
         const materiald3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const objd3 = new THREE.Mesh(geometryd3, materiald3);
         objd3.position.set(62, 10, -0);
-        scene.add(objd3); // シーンに物体を追加（接続）
+        mainground.add(objd3); // シーンに物体を追加（接続）
 
         const geometry_L1 = new THREE.BoxGeometry(12.5, 40, 8.3); // 横, 高さ(１３階×４m), 縦
         const material_L1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_L1 = new THREE.Mesh(geometry_L1, material_L1); // 物体（形状,質感）
         obj_L1.position.set(60, 20, -20 + 5.5); // d1の半分 + d1からL1まで + 11.5
-        scene.add(obj_L1); // シーンに物体を追加（接続
+        mainground.add(obj_L1); // シーンに物体を追加（接続
+
+        //中央図書館(担当場所)
+        const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z　geometry：形　material：質感
+        const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
+        objC.position.set(42, 27.5, -20 + 5.5); //11.5
+        mainground.add(objC); // シーンに物体を追加（接続）
+
+        //AB館
+        const geometry3 = new THREE.BoxGeometry(10, 32, 8); //直方体x,y,z　geometry：形　material：質感
+        const material3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj3 = new THREE.Mesh(geometry3, material3); // 物体（形状,質感）
+        obj3.position.set(20, 17, -20 + 5.5); //11.5
+        mainground.add(obj3); // シーンに物体を追加（接続）
+
+        //AB塔
+        const geometry4 = new THREE.BoxGeometry(2, 44, 5); //直方体x,y,z　geometry：形　material：質感
+        const material4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj4 = new THREE.Mesh(geometry4, material4); // 物体（形状,質感）
+        obj4.position.set(12, 23, -15); //11.5
+        mainground.add(obj4); // シーンに物体を追加（接続）
+
+        //AB渡り廊下
+        const geometry5 = new THREE.BoxGeometry(2, 32, 2); //直方体x,y,z　geometry：形　material：質感
+        const material5 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj5 = new THREE.Mesh(geometry5, material5); // 物体（形状,質感）
+        obj5.position.set(14, 17, -15); //11.5
+        mainground.add(obj5); // シーンに物体を追加（接続）
+
+        //公江記念講堂
+        const geometryKK = new THREE.BoxGeometry(16, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK = new THREE.Mesh(geometryKK, materialKK); // 物体（形状,質感）
+        objKK.position.set(22, 13, 12 + 5.5); //11.5
+        mainground.add(objKK); // シーンに物体を追加（接続）
+        //公江端っこ
+        const geometryKK1 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
+        const materialKK1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK1 = new THREE.Mesh(geometryKK1, materialKK1); // 物体（形状,質感）
+        objKK1.position.set(22, 13, 3.5 + 5.5); //11.5
+        mainground.add(objKK1); // シーンに物体を追加（接続）
+        const geometryKK2 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK2 = new THREE.Mesh(geometryKK2, materialKK2); // 物体（形状,質感）
+        objKK2.position.set(32, 13, 12 + 5.5); //11.5
+        mainground.add(objKK2); // シーンに物体を追加（接続）
+        const geometryKK3 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
+        const materialKK3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK3 = new THREE.Mesh(geometryKK3, materialKK3); // 物体（形状,質感）
+        objKK3.position.set(22, 13, 21 + 5.5); //11.5
+        mainground.add(objKK3); // シーンに物体を追加（接続）
+        const geometryKK4 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK4 = new THREE.Mesh(geometryKK4, materialKK4); // 物体（形状,質感）
+        objKK4.position.set(12, 13, 12 + 5.5); //11.5
+        mainground.add(objKK4); // シーンに物体を追加（接続）
+
+        const geometry34 = new THREE.BoxGeometry(9, 35, 13);
+        const material34 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const higasi = new THREE.Mesh(geometry34, material34); // 物体（形状,質感）
+        higasi.position.set(62, 17.5, 17); //11.5
+        mainground.add(higasi); //
 
         function changeScene() {
           // シーン表示の更新処理メソッド
@@ -107,69 +170,6 @@
           renderer.render(scene, camera); // レンダリング
           requestAnimationFrame(changeScene); // シーン表示を更新
         }
-
-        //中央図書館(担当場所)
-        const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z　geometry：形　material：質感
-        const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
-        const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
-        objC.position.set(42, 27.5, -20 + 5.5); //11.5
-        scene.add(objC); // シーンに物体を追加（接続）
-
-        //AB館
-        const geometry3 = new THREE.BoxGeometry(10, 32, 8); //直方体x,y,z　geometry：形　material：質感
-        const material3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj3 = new THREE.Mesh(geometry3, material3); // 物体（形状,質感）
-        obj3.position.set(20, 17, -20 + 5.5); //11.5
-        scene.add(obj3); // シーンに物体を追加（接続）
-
-        //AB塔
-        const geometry4 = new THREE.BoxGeometry(2, 44, 5); //直方体x,y,z　geometry：形　material：質感
-        const material4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj4 = new THREE.Mesh(geometry4, material4); // 物体（形状,質感）
-        obj4.position.set(12, 23, -15); //11.5
-        scene.add(obj4); // シーンに物体を追加（接続）
-
-        //AB渡り廊下
-        const geometry5 = new THREE.BoxGeometry(2, 32, 2); //直方体x,y,z　geometry：形　material：質感
-        const material5 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj5 = new THREE.Mesh(geometry5, material5); // 物体（形状,質感）
-        obj5.position.set(14, 17, -15); //11.5
-        scene.add(obj5); // シーンに物体を追加（接続）
-
-        //公江記念講堂
-        const geometryKK = new THREE.BoxGeometry(16, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objKK = new THREE.Mesh(geometryKK, materialKK); // 物体（形状,質感）
-        objKK.position.set(22, 13, 12 + 5.5); //11.5
-        scene.add(objKK); // シーンに物体を追加（接続）
-        //公江端っこ
-        const geometryKK1 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
-        const materialKK1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objKK1 = new THREE.Mesh(geometryKK1, materialKK1); // 物体（形状,質感）
-        objKK1.position.set(22, 13, 3.5 + 5.5); //11.5
-        scene.add(objKK1); // シーンに物体を追加（接続）
-        const geometryKK2 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objKK2 = new THREE.Mesh(geometryKK2, materialKK2); // 物体（形状,質感）
-        objKK2.position.set(32, 13, 12 + 5.5); //11.5
-        scene.add(objKK2); // シーンに物体を追加（接続）
-        const geometryKK3 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
-        const materialKK3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objKK3 = new THREE.Mesh(geometryKK3, materialKK3); // 物体（形状,質感）
-        objKK3.position.set(22, 13, 21 + 5.5); //11.5
-        scene.add(objKK3); // シーンに物体を追加（接続）
-        const geometryKK4 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objKK4 = new THREE.Mesh(geometryKK4, materialKK4); // 物体（形状,質感）
-        objKK4.position.set(12, 13, 12 + 5.5); //11.5
-        scene.add(objKK4); // シーンに物体を追加（接続）
-
-        const geometry34 = new THREE.BoxGeometry(9, 35, 13);
-        const material34 = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const higasi = new THREE.Mesh(geometry34, material34); // 物体（形状,質感）
-        higasi.position.set(62, 17.5, 17); //11.5
-        scene.add(higasi); //
-
         changeScene(); // 初回シーン表示実行
       }
       window.onload = init; // 実行ウィンドウが開始したらinitを実施（固定）
