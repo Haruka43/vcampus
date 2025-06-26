@@ -115,23 +115,33 @@
         objC.position.set(42, 27.5, -20 + 5.5); //11.5
         scene.add(objC); // シーンに物体を追加（接続）
 
+        //AB館
         const geometry3 = new THREE.BoxGeometry(10, 32, 8); //直方体x,y,z　geometry：形　material：質感
         const material3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj3 = new THREE.Mesh(geometry3, material3); // 物体（形状,質感）
         obj3.position.set(20, 17, -20 + 5.5); //11.5
         scene.add(obj3); // シーンに物体を追加（接続）
 
+        //AB塔
         const geometry4 = new THREE.BoxGeometry(2, 44, 5); //直方体x,y,z　geometry：形　material：質感
         const material4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj4 = new THREE.Mesh(geometry4, material4); // 物体（形状,質感）
         obj4.position.set(12, 23, -15); //11.5
         scene.add(obj4); // シーンに物体を追加（接続）
 
+        //AB渡り廊下
         const geometry5 = new THREE.BoxGeometry(2, 32, 2); //直方体x,y,z　geometry：形　material：質感
         const material5 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj5 = new THREE.Mesh(geometry5, material5); // 物体（形状,質感）
         obj5.position.set(14, 17, -15); //11.5
         scene.add(obj5); // シーンに物体を追加（接続）
+
+        //公江記念講堂
+        const geometryKK = new THREE.BoxGeometry(16, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objKK = new THREE.Mesh(geometryKK, materialKK); // 物体（形状,質感）
+        objKK.position.set(22, 13, 12 + 5.5); //11.5
+        scene.add(objKK); // シーンに物体を追加（接続）
 
         const geometry34 = new THREE.BoxGeometry(9, 35, 13);
         const material34 = new THREE.MeshStandardMaterial({ color: 0x800000 });
