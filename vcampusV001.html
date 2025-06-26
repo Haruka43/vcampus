@@ -7,7 +7,9 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>Information Mathematics for Games</title>
-    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+    <!--[if IE
+      ]><script type="text/javascript" src="excanvas.js"></script
+    ><![endif]-->
     <script src="../three.js"></script>
     <script src="../OrbitControls.js"></script>
     <script type="text/javascript">
@@ -21,14 +23,14 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector('#canvassample')
+          canvas: document.querySelector("#canvassample"),
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
         renderer.setClearColor(0xafeeee); // 背景色
 
         const loader = new THREE.TextureLoader();
-        loader.load('img/sky.jpg', function (texture) {
+        loader.load("img/sky.jpg", function (texture) {
           scene.background = texture;
         }); // 背景画像を読み込む
 
@@ -75,7 +77,10 @@
         mainground.add(obj2); // シーンに物体を追加（接続）
 
         const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
-        const material0 = new THREE.MeshStandardMaterial({ color: 0x90ee90, side: THREE.DoubleSide });
+        const material0 = new THREE.MeshStandardMaterial({
+          color: 0x90ee90,
+          side: THREE.DoubleSide,
+        });
         const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
         obj0.rotation.x = -Math.PI / 2;
         mainground.add(obj0); // シーンに物体を追加（接続）
@@ -117,7 +122,7 @@
         const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z　geometry：形　material：質感
         const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
         const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
-        objC.position.set(42, 27.5, -20 + 5.5); //11.5
+        objC.position.set(42, 26, -20 + 5.5); //11.5
         mainground.add(objC); // シーンに物体を追加（接続）
 
         //公江記念館（KM）
