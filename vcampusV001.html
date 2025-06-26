@@ -46,6 +46,7 @@
         scene.add(ambientlight);
 
         const mainground = new THREE.Group(); // グループを作成
+        mainground.scale.set(1, 0.75, 1); // グループのスケールを設定
         scene.add(mainground); // シーンにグループを追加
 
         const geometry = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
