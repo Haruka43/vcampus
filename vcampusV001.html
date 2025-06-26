@@ -7,9 +7,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>Information Mathematics for Games</title>
-    <!--[if IE
-      ]><script type="text/javascript" src="excanvas.js"></script
-    ><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
     <script src="../three.js"></script>
     <script src="../OrbitControls.js"></script>
     <script type="text/javascript">
@@ -23,14 +21,14 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector("#canvassample"),
+          canvas: document.querySelector('#canvassample')
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
         renderer.setClearColor(0xafeeee); // 背景色
 
         const loader = new THREE.TextureLoader();
-        loader.load("img/sky.jpg", function (texture) {
+        loader.load('img/sky.jpg', function (texture) {
           scene.background = texture;
         }); // 背景画像を読み込む
 
@@ -50,7 +48,7 @@
         const mainground = new THREE.Group(); // グループを作成
         scene.add(mainground); // シーンにグループを追加
 
-        const geometry = new THREE.BoxGeometry(230, 200, 110); //直方体x,y,z　geometry：形　material：質感
+        const geometry = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
         //const geometry = new THREE.SphereGeometry(0.5, 32, 32);//球r,dx,dy
         //const geometry = new THREE.ConeGeometry( 0.5, 1, 32 );//円錐r,h,dy
         //const geometry = new THREE.CylinderGeometry( 0.5, 0.5, 1, 32 );//円柱（台）rtop,rbase,h,dy
@@ -76,7 +74,7 @@
         mainground.add(obj2); // シーンに物体を追加（接続）
 
         const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
-        const material0 = new THREE.MeshStandardMaterial({ color: 0x90ee90 });
+        const material0 = new THREE.MeshStandardMaterial({ color: 0x90ee90, side: THREE.DoubleSide });
         const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
         obj0.rotation.x = -Math.PI / 2;
         mainground.add(obj0); // シーンに物体を追加（接続）
