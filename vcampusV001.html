@@ -164,8 +164,8 @@
 
         function changeScene() {
           // シーン表示の更新処理メソッド
-          //obj.rotation.x += 0.01; // 物体を回転させる
-          //obj.rotation.y += 0.01; // 物体を回転させる
+          //mainground.rotation.x += 0.01; // 物体を回転させる
+          //mainground.rotation.y += 0.01; // 物体を回転させる
           controls.update(); // マウスによる回転制御を反映
           renderer.render(scene, camera); // レンダリング
           requestAnimationFrame(changeScene); // シーン表示を更新
