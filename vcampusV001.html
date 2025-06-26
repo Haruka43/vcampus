@@ -121,7 +121,7 @@
 
         //公江記念館（KM）
         const KM = new THREE.BoxGeometry(19, 32, 11); //直方体x,y,z　geometry：形　material：質感
-        const materialKM = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        const materialKM = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const objKM = new THREE.Mesh(KM, materialKM); // 物体（形状,質感）
         objKM.position.set(-19, 16, -15); //11.5
         mainground.add(objKM); // シーンに物体を追加（接続）
