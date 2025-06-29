@@ -104,7 +104,8 @@
         objRoad43.rotation.x = -Math.PI / 2;
         mainground.add(objRoad43); // シーンに物体を追加（接続）
 
-        const geometryd3 = new THREE.BoxGeometry(9, 20, 18); //L2
+        //L2
+        const geometryd3 = new THREE.BoxGeometry(9, 20, 18);
         const materiald3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const objd3 = new THREE.Mesh(geometryd3, materiald3);
         objd3.position.set(62, 10, -0);
@@ -184,6 +185,31 @@
         const higasi = new THREE.Mesh(geometry34, material34); // 物体（形状,質感）
         higasi.position.set(62, 17.5, 17); //11.5
         mainground.add(higasi); //
+
+        //左側MM館
+        const geometryMM1 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
+        const materialMM1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objMM1 = new THREE.Mesh(geometryMM1, materialMM1); // 物体（形状,質感）
+        objMM1.position.set(-28, 16, 16);
+        mainground.add(objMM1); // シーンに物体を追加（接続）
+        //右側MM館
+        const geometryMM2 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
+        const materialMM2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objMM2 = new THREE.Mesh(geometryMM2, materialMM2); // 物体（形状,質感）
+        objMM2.position.set(-14, 16, 16);
+        mainground.add(objMM2); // シーンに物体を追加（接続）
+        //下側MM館
+        const geometryMM3 = new THREE.BoxGeometry(19, 32, 5); //直方体x,y,z　geometry：形　material：質感
+        const materialMM3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objMM3 = new THREE.Mesh(geometryMM3, materialMM3); // 物体（形状,質感）
+        objMM3.position.set(-21, 16, 23);
+        mainground.add(objMM3); // シーンに物体を追加（接続）
+        //上側MM館
+        const geometryMM4 = new THREE.BoxGeometry(19, 32, 5); //直方体x,y,z　geometry：形　material：質感
+        const materialMM4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objMM4 = new THREE.Mesh(geometryMM4, materialMM4); // 物体（形状,質感）
+        objMM4.position.set(-21, 16, 9);
+        mainground.add(objMM4); // シーンに物体を追加（接続）
 
         var positionKeyframeTrackJSON = {
           //視点移動の通過点座標
