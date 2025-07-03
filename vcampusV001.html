@@ -211,8 +211,15 @@
         const geometryHS2 = new THREE.BoxGeometry(1, 16, 7); //直方体x,y,z　geometry：形　material：質感
         const materialHS2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const objHS2 = new THREE.Mesh(geometryHS2, materialHS2); // 物体（形状,質感）
-        objHS2.position.set(26, 8, 43); //11.5
+        objHS2.position.set(26, 8, 42); //11.5
         mainground.add(objHS2); // シーンに物体を追加（接続）
+
+        //南館
+        const geometryS = new THREE.BoxGeometry(12, 20, 15); //直方体x,y,z　geometry：形　material：質感
+        const materialS = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objS = new THREE.Mesh(geometryS, materialS); // 物体（形状,質感）
+        objS.position.set(14, 10, 48); //11.5
+        mainground.add(objS); // シーンに物体を追加（接続）
 
         //左側MM館
         const geometryMM1 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
