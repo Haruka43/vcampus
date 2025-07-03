@@ -193,12 +193,26 @@
         const objM = new THREE.Mesh(geometryM, materialM); // 物体（形状,質感）
         objM.position.set(39, 10, 52); //11.5
         mainground.add(objM); // シーンに物体を追加（接続）
-        //健康科学館
+        //健康科学館A
         const geometryHS = new THREE.BoxGeometry(15, 16, 9); //直方体x,y,z　geometry：形　material：質感
         const materialHS = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const objHS = new THREE.Mesh(geometryHS, materialHS); // 物体（形状,質感）
-        objHS.position.set(24, 8, 36); //11.5
+        objHS.position.set(31, 8, 41); //11.5
         mainground.add(objHS); // シーンに物体を追加（接続）
+
+        //健康科学館B
+        const geometryHS1 = new THREE.BoxGeometry(5, 16, 7); //直方体x,y,z　geometry：形　material：質感
+        const materialHS1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objHS1 = new THREE.Mesh(geometryHS1, materialHS1); // 物体（形状,質感）
+        objHS1.position.set(26, 8, 48); //11.5
+        mainground.add(objHS1); // シーンに物体を追加（接続）
+
+        //健康科学館c
+        const geometryHS2 = new THREE.BoxGeometry(1, 16, 7); //直方体x,y,z　geometry：形　material：質感
+        const materialHS2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const objHS2 = new THREE.Mesh(geometryHS2, materialHS2); // 物体（形状,質感）
+        objHS2.position.set(26, 8, 43); //11.5
+        mainground.add(objHS2); // シーンに物体を追加（接続）
 
         //左側MM館
         const geometryMM1 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
