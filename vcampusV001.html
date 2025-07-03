@@ -111,12 +111,12 @@
         objd3.position.set(62, 10, -0);
         mainground.add(objd3); // シーンに物体を追加（接続）
 
-        //文学1号館（L1）
+        //文学１号館（L1）
         const geometry_L1 = new THREE.BoxGeometry(12.5, 40, 8.3); // 横, 高さ(１３階×４m), 縦
         const material_L1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_L1 = new THREE.Mesh(geometry_L1, material_L1); // 物体（形状,質感）
-        obj_L1.position.set(60, 20, -20 + 5.5); // d1の半分 + d1からL1まで + 11.5
-        mainground.add(obj_L1); // シーンに物体を追加（接続
+        obj_L1.position.set(60, 20, -20 + 5.5);
+        mainground.add(obj_L1); // シーンに物体を追加（接続）
 
         //中央図書館(担当場所)
         const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z　geometry：形　material：質感
@@ -211,6 +211,13 @@
         const objMM4 = new THREE.Mesh(geometryMM4, materialMM4); // 物体（形状,質感）
         objMM4.position.set(-21, 16, 9);
         mainground.add(objMM4); // シーンに物体を追加（接続）
+
+        //生活環境１号館（H1）
+        const geometry_H1 = new THREE.BoxGeometry(13.5, 24, 7.5); // 横, 高さ(６階×４m), 縦
+        const material_H1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj_H1 = new THREE.Mesh(geometry_H1, material_H1); // 物体（形状,質感）
+        obj_H1.position.set(56.5, 12, 70);
+        mainground.add(obj_H1); // シーンに物体を追加（接続）
 
         var positionKeyframeTrackJSON = {
           //視点移動の通過点座標
