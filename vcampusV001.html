@@ -289,24 +289,31 @@
         var positionKeyframeTrackJSON = {
           //視点移動の通過点座標
           name: '.position',
-          type: 'vector', //’number’,’color’,’quaternion’,’boolean’,’string’
-          times: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 15, 1.5, 50, -21, 1.5, 30, -50, 1.5, 0,-30, 20, 50, 0, 60, 120]
+          type: 'vector',
+          // CORRECTED: Now has 10 elements to match the 10 positions
+          times: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          values: [
+            -90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 15, 1.5, 50, -21, 1.5, 30, -50, 1.5, 0,
+            -30, 20, 50, 0, 60, 120
+          ] // This array has 30 numbers, which correctly defines 10 positions.
         };
+
         var rotationKeyframeTrackJSON = {
           //視点の回転変化
           name: '.rotation[y]',
           type: 'number',
-          times: [0, 10],
+          // CORRECTED: Matched to the new duration
+          times: [0, 9],
           values: [0, -Math.PI / 2],
           interpolation: THREE.InterpolateSmooth
-          //’THREE.InterpolateLinear’,’THREE.InterpolateDiscrete’
         };
+
         var clipJSON = {
-          // 動きの移動時間2秒でデータ作成
-          duration: 10,
+          // CORRECTED: Duration is now 9 to match the last timestamp
+          duration: 9,
           tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
         };
+
         var clip = THREE.AnimationClip.parse(clipJSON);
         var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
         var action = mixer.clipAction(clip);
