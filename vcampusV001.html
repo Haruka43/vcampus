@@ -291,11 +291,8 @@
           name: '.position',
           type: 'vector',
           // CORRECTED: Now has 10 elements to match the 10 positions
-          times: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-          values: [
-            -90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 15, 1.5, 50, -21, 1.5, 30, -50, 1.5, 0,
-            -30, 20, 50, 0, 60, 120
-          ] // This array has 30 numbers, which correctly defines 10 positions.
+          times: [0, 1, 2, 3, 4, 5],
+          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55] // This array has 30 numbers, which correctly defines 10 positions.
         };
 
         var rotationKeyframeTrackJSON = {
@@ -303,14 +300,14 @@
           name: '.rotation[y]',
           type: 'number',
           // CORRECTED: Matched to the new duration
-          times: [0, 9],
+          times: [0, 5],
           values: [0, -Math.PI / 2],
           interpolation: THREE.InterpolateSmooth
         };
 
         var clipJSON = {
           // CORRECTED: Duration is now 9 to match the last timestamp
-          duration: 9,
+          duration: 5,
           tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
         };
 
