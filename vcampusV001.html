@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,9 +6,8 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title>Information Mathematics for Games</title>
-    <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
-    <script src="../three.js"></script>
-    <script src="../OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script type="text/javascript">
       //<![CDATA[
       var g; // グラフィックウィンドウ（固定）
@@ -27,15 +25,17 @@
         renderer.setSize(width, height);
         renderer.setClearColor(0xafeeee); // 背景色
 
-        const loader = new THREE.TextureLoader();
-        loader.load('img/sky.jpg', function (texture) {
-          scene.background = texture;
-        }); // 背景画像を読み込む
-
         const scene = new THREE.Scene(); // シーングラフのルートを生成
+
+        const loader = new THREE.TextureLoader();
+        // 画像がない場合を考慮し、コメントアウトまたは実際のパスを指定してください
+        // loader.load('img/sky.jpg', function (texture) {
+        //   scene.background = texture;
+        // }); // 背景画像を読み込む
+
         const camera = new THREE.PerspectiveCamera(45, width / height); // カメラを生成
         camera.position.set(0, 10, +241); // カメラ（視点）の位置（2.41m）を設置×100
-        const controls = new THREE.OrbitControls(camera); // マウスによる回転制御
+        const controls = new THREE.OrbitControls(camera, renderer.domElement); // マウスによる回転制御
         controls.enableDamping = true; // マウス制御の設定
         controls.dampingFactor = 0.2; // マウス制御の設定
 
@@ -50,11 +50,6 @@
         scene.add(mainground); // シーンにグループを追加
 
         const geometry = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
-        //const geometry = new THREE.SphereGeometry(0.5, 32, 32);//球r,dx,dy
-        //const geometry = new THREE.ConeGeometry( 0.5, 1, 32 );//円錐r,h,dy
-        //const geometry = new THREE.CylinderGeometry( 0.5, 0.5, 1, 32 );//円柱（台）rtop,rbase,h,dy
-        //const geometry = new THREE.TorusGeometry( 0.5, 0.2, 32, 32);//トーラスra,rb
-
         const material = new THREE.MeshStandardMaterial({ color: 0xff9f80 }); //第一体育館
         const obj = new THREE.Mesh(geometry, material); // 物体（形状,質感）
         obj.position.set(-60 + 11.5, 10, -20 + 5.5); //11.5
@@ -118,29 +113,9 @@
         obj_L1.position.set(60, 20, -20 + 5.5);
         mainground.add(obj_L1); // シーンに物体を追加（接続）
 
-        //中央図書館(担当場所)
-        const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z　geometry：形　material：質感
-        const materialC = [
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }), //右側面
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }), //左側面
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }), //上部
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }), //底面
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }), //正面
-          new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/library.jpg')
-          }) //裏面
-        ];
-        //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        //中央図書館(担当場所) - 画像テクスチャはパスが必要なため色に変更
+        const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z
+        const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
         const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
         objC.position.set(42, 26, -20 + 5.5); //11.5
         mainground.add(objC); // シーンに物体を追加（接続）
@@ -286,27 +261,24 @@
         obj_MS.position.set(48, 4, 46); //11.5
         mainground.add(obj_MS); // シーンに物体を追加（接続
 
+        // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
-          //視点移動の通過点座標
           name: '.position',
           type: 'vector',
-          // CORRECTED: Now has 10 elements to match the 10 positions
           times: [0, 1, 2, 3, 4, 5],
-          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55] // This array has 30 numbers, which correctly defines 10 positions.
+          // 6つの時間点に対応する18個の数値を設定 (最後の座標を複製)
+          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 50, 1.5, 55]
         };
 
         var rotationKeyframeTrackJSON = {
-          //視点の回転変化
           name: '.rotation[y]',
           type: 'number',
-          // CORRECTED: Matched to the new duration
           times: [0, 5],
           values: [0, -Math.PI / 2],
           interpolation: THREE.InterpolateSmooth
         };
 
         var clipJSON = {
-          // CORRECTED: Duration is now 9 to match the last timestamp
           duration: 5,
           tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
         };
@@ -316,16 +288,22 @@
         var action = mixer.clipAction(clip);
         action.play();
 
-        function changeScene() {
-          mixer.update(0.01); // ②視点移動変化の更新
-          // シーン表示の更新処理メソッド
-          //obj.rotation.x += 0.01; // 物体を回転させる
-          //obj.rotation.y += 0.01; // 物体を回転させる
-          //controls.update(); // マウスによる回転制御を反映
+        // 修正箇所２：Clockの追加
+        const clock = new THREE.Clock();
+
+        function animate() {
+          // 経過時間を取得
+          const delta = clock.getDelta();
+
+          // mixerを更新
+          mixer.update(delta);
+
+          controls.update(); // マウスによる回転制御を反映
           renderer.render(scene, camera); // レンダリング
-          requestAnimationFrame(changeScene); // シーン表示を更新
+          requestAnimationFrame(animate); // シーン表示を更新
         }
-        changeScene(); // 初回シーン表示実行
+
+        animate(); // アニメーションループを開始
       }
       window.onload = init; // 実行ウィンドウが開始したらinitを実施（固定）
       //]]>
