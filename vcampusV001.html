@@ -286,13 +286,6 @@
         obj_MS.position.set(48, 4, 46); //11.5
         mainground.add(obj_MS); // シーンに物体を追加（接続
 
-        //南館（S）
-        const S = new THREE.BoxGeometry(10, 52, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialS = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const objS = new THREE.Mesh(S, materialS); // 物体（形状,質感）
-        objS.position.set(15, 26, 41); //11.5
-        mainground.add(objS); // シーンに物体を追加（接続）
-
         var positionKeyframeTrackJSON = {
           //視点移動の通過点座標
           name: '.position',
