@@ -19,7 +19,7 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector('#canvassample')
+          canvas: document.querySelector("#canvassample"),
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
@@ -72,7 +72,7 @@
         const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
         const material0 = new THREE.MeshStandardMaterial({
           color: 0x90ee90,
-          side: THREE.DoubleSide
+          side: THREE.DoubleSide,
         });
         const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
         obj0.rotation.x = -Math.PI / 2;
@@ -263,24 +263,27 @@
 
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
-          name: '.position',
-          type: 'vector',
+          name: ".position",
+          type: "vector",
           times: [0, 1, 2, 3, 4, 5],
           // 6つの時間点に対応する18個の数値を設定 (最後の座標を複製)
-          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 50, 1.5, 55]
+          values: [
+            -90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55,
+            50, 1.5, 55,
+          ],
         };
 
         var rotationKeyframeTrackJSON = {
-          name: '.rotation[y]',
-          type: 'number',
+          name: ".rotation[y]",
+          type: "number",
           times: [0, 5],
           values: [0, -Math.PI / 2],
-          interpolation: THREE.InterpolateSmooth
+          interpolation: THREE.InterpolateSmooth,
         };
 
         var clipJSON = {
           duration: 5,
-          tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
+          tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON],
         };
 
         var clip = THREE.AnimationClip.parse(clipJSON);
