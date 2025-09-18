@@ -266,7 +266,40 @@
         const material_SE = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_SE = new THREE.Mesh(geometry_SE, material_SE); // 物体（形状,質感）
         obj_SE.position.set(-79, 10.5, -50); //11.5
-        mainground.add(obj_SE); // シーンに物体を追加（接続
+        mainground.add(obj_SE); // シーンに物体を追加（接続)
+
+        //交差点歩道橋
+        const geometry_br1 = new THREE.BoxGeometry(20, 4, 4); //直方体x,y,z　geometry：形　material：質感
+        const material_br1 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc,
+        });
+        const obj_br1 = new THREE.Mesh(geometry_br1, material_br1); // 物体（形状,質感）
+        obj_br1.position.set(0, 10, -24); //11.5
+        mainground.add(obj_br1); // シーンに物体を追加（接続)
+
+        const geometry_br2 = new THREE.BoxGeometry(4, 4, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br2 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc,
+        });
+        const obj_br2 = new THREE.Mesh(geometry_br2, material_br2); // 物体（形状,質感）
+        obj_br2.position.set(-10, 10, -33); //11.5
+        mainground.add(obj_br2); // シーンに物体を追加（接続)
+
+        const geometry_br3 = new THREE.BoxGeometry(20, 4, 4); //直方体x,y,z　geometry：形　material：質感
+        const material_br3 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc,
+        });
+        const obj_br3 = new THREE.Mesh(geometry_br3, material_br3); // 物体（形状,質感）
+        obj_br3.position.set(0, 10, -42); //11.5
+        mainground.add(obj_br3); // シーンに物体を追加（接続)
+
+        const geometry_br4 = new THREE.BoxGeometry(4, 4, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br4 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc,
+        });
+        const obj_br4 = new THREE.Mesh(geometry_br4, material_br4); // 物体（形状,質感）
+        obj_br4.position.set(10, 10, -33); //11.5
+        mainground.add(obj_br4); // シーンに物体を追加（接続)
 
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
