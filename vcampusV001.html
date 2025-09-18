@@ -259,35 +259,47 @@
         const material_MS = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_MS = new THREE.Mesh(geometry_MS, material_MS); // 物体（形状,質感）
         obj_MS.position.set(48, 5, 46); //11.5
-        mainground.add(obj_MS); // シーンに物体を追加（接続
+        mainground.add(obj_MS); // シーンに物体を追加（接続)
 
         //学校教育館
         const geometry_SE = new THREE.BoxGeometry(24, 21, 18); //直方体x,y,z　geometry：形　material：質感
         const material_SE = new THREE.MeshStandardMaterial({ color: 0x800000 });
         const obj_SE = new THREE.Mesh(geometry_SE, material_SE); // 物体（形状,質感）
         obj_SE.position.set(-79, 10.5, -50); //11.5
-        mainground.add(obj_SE); // シーンに物体を追加（接続
+        mainground.add(obj_SE); // シーンに物体を追加（接続)
 
-        //華SAKU食堂
-        const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
-        const material_SAKU = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj_SAKU = new THREE.Mesh(geometry_SAKU, material_SAKU); // 物体（形状,質感）
-        obj_SAKU.position.set(-57, 6, -43.5); //11.5
-        mainground.add(obj_SAKU); // シーンに物体を追加（接続
+        //交差点歩道橋
+        const geometry_br1 = new THREE.BoxGeometry(20, 4, 4); //直方体x,y,z　geometry：形　material：質感
+        const material_br1 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc
+        });
+        const obj_br1 = new THREE.Mesh(geometry_br1, material_br1); // 物体（形状,質感）
+        obj_br1.position.set(0, 10, -24); //11.5
+        mainground.add(obj_br1); // シーンに物体を追加（接続)
 
-        //看護科学館
-        const geometry_N = new THREE.BoxGeometry(14, 18, 12); //直方体x,y,z　geometry：形　material：質感
-        const material_N = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj_N = new THREE.Mesh(geometry_N, material_N); // 物体（形状,質感）
-        obj_N.position.set(-54, 9, -53.5); //11.5
-        mainground.add(obj_N); // シーンに物体を追加（接続
+        const geometry_br2 = new THREE.BoxGeometry(4, 4, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br2 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc
+        });
+        const obj_br2 = new THREE.Mesh(geometry_br2, material_br2); // 物体（形状,質感）
+        obj_br2.position.set(-10, 10, -33); //11.5
+        mainground.add(obj_br2); // シーンに物体を追加（接続)
 
-        //総合心理科学館
-        const geometry_PS = new THREE.BoxGeometry(8, 18, 9); //直方体x,y,z　geometry：形　material：質感
-        const material_PS = new THREE.MeshStandardMaterial({ color: 0x800000 });
-        const obj_PS = new THREE.Mesh(geometry_PS, material_PS); // 物体（形状,質感）
-        obj_PS.position.set(-42.5, 9, -45.5); //11.5
-        mainground.add(obj_PS); // シーンに物体を追加（接続
+        const geometry_br3 = new THREE.BoxGeometry(20, 4, 4); //直方体x,y,z　geometry：形　material：質感
+        const material_br3 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc
+        });
+        const obj_br3 = new THREE.Mesh(geometry_br3, material_br3); // 物体（形状,質感）
+        obj_br3.position.set(0, 10, -42); //11.5
+        mainground.add(obj_br3); // シーンに物体を追加（接続)
+
+        const geometry_br4 = new THREE.BoxGeometry(4, 4, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br4 = new THREE.MeshStandardMaterial({
+          color: 0xccffcc
+        });
+        const obj_br4 = new THREE.Mesh(geometry_br4, material_br4); // 物体（形状,質感）
+        obj_br4.position.set(10, 10, -33); //11.5
+        mainground.add(obj_br4); // シーンに物体を追加（接続)
 
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
