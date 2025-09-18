@@ -359,6 +359,13 @@
         obj_SAKU.position.set(-57, 6, -43.5); //11.5
         mainground.add(obj_SAKU); // シーンに物体を追加（接続
 
+        //看護科学館
+        const geometry_N = new THREE.BoxGeometry(14, 18, 12); //直方体x,y,z　geometry：形　material：質感
+        const material_N = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj_N = new THREE.Mesh(geometry_N, material_N); // 物体（形状,質感）
+        obj_N.position.set(-54, 9, -53.5); //11.5
+        mainground.add(obj_N); // シーンに物体を追加（接続
+
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
           name: '.position',
