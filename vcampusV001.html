@@ -366,6 +366,13 @@
         obj_N.position.set(-54, 9, -53.5); //11.5
         mainground.add(obj_N); // シーンに物体を追加（接続
 
+        //総合心理科学館
+        const geometry_PS = new THREE.BoxGeometry(8, 18, 9); //直方体x,y,z　geometry：形　material：質感
+        const material_PS = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj_PS = new THREE.Mesh(geometry_PS, material_PS); // 物体（形状,質感）
+        obj_PS.position.set(-42.5, 9, -45.5); //11.5
+        mainground.add(obj_PS); // シーンに物体を追加（接続
+
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
           name: '.position',
