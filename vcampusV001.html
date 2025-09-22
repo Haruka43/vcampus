@@ -19,7 +19,7 @@
 
         const renderer = new THREE.WebGLRenderer({
           // レンダラー（投影計算）を作成
-          canvas: document.querySelector('#canvassample')
+          canvas: document.querySelector("#canvassample"),
         });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(width, height);
@@ -67,7 +67,7 @@
         //線路
         const geometryTRl1 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl1 = new THREE.MeshStandardMaterial({
-          color: 0x696969
+          color: 0x696969,
         });
         const objTRl1 = new THREE.Mesh(geometryTRl1, materialTRl1); // 2つ目の物体もsceneに付け加えた
         objTRl1.position.set(0, 10, -88);
@@ -76,7 +76,7 @@
 
         const geometryTRl2 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl2 = new THREE.MeshStandardMaterial({
-          color: 0x696969
+          color: 0x696969,
         });
         const objTRl2 = new THREE.Mesh(geometryTRl2, materialTRl2); // 2つ目の物体もsceneに付け加えた
         objTRl2.position.set(0, 10, -92);
@@ -88,7 +88,7 @@
         for (let i = -1000; i < 1000; i += 9) {
           const geometryTRm = new THREE.BoxGeometry(3, 1, 7); //直方体x,y,z　geometry：形　material：質感
           const materialTRm = new THREE.MeshStandardMaterial({
-            color: 0x86564f
+            color: 0x86564f,
           }); //線路高架色
           const objTRm = new THREE.Mesh(geometryTRm, materialTRm); // 物体（形状,質感）
           objTRm.position.set(i, 9, -90); //11.5
@@ -114,7 +114,7 @@
         const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
         const material0 = new THREE.MeshStandardMaterial({
           color: 0x90ee90,
-          side: THREE.DoubleSide
+          side: THREE.DoubleSide,
         });
         const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
         obj0.rotation.x = -Math.PI / 2;
@@ -313,7 +313,7 @@
         //交差点歩道橋
         const geometry_br1 = new THREE.BoxGeometry(20, 2, 2); //直方体x,y,z　geometry：形　material：質感
         const material_br1 = new THREE.MeshStandardMaterial({
-          color: 0x8fbc8f
+          color: 0x8fbc8f,
         });
         const obj_br1 = new THREE.Mesh(geometry_br1, material_br1); // 物体（形状,質感）
         obj_br1.position.set(0, 10, -22); //11.5
@@ -321,7 +321,7 @@
 
         const geometry_br2 = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_br2 = new THREE.MeshStandardMaterial({
-          color: 0x8fbc8f
+          color: 0x8fbc8f,
         });
         const obj_br2 = new THREE.Mesh(geometry_br2, material_br2); // 物体（形状,質感）
         obj_br2.position.set(-10, 10, -31); //11.5
@@ -329,7 +329,7 @@
 
         const geometry_br3 = new THREE.BoxGeometry(20, 2, 2); //直方体x,y,z　geometry：形　material：質感
         const material_br3 = new THREE.MeshStandardMaterial({
-          color: 0x8fbc8f
+          color: 0x8fbc8f,
         });
         const obj_br3 = new THREE.Mesh(geometry_br3, material_br3); // 物体（形状,質感）
         obj_br3.position.set(0, 10, -40); //11.5
@@ -337,7 +337,7 @@
 
         const geometry_br4 = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_br4 = new THREE.MeshStandardMaterial({
-          color: 0x8fbc8f
+          color: 0x8fbc8f,
         });
         const obj_br4 = new THREE.Mesh(geometry_br4, material_br4); // 物体（形状,質感）
         obj_br4.position.set(10, 10, -31); //11.5
@@ -346,7 +346,7 @@
         //教育館横歩道橋
         const geometry_brS = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_brS = new THREE.MeshStandardMaterial({
-          color: 0x8fbc8f
+          color: 0x8fbc8f,
         });
         const obj_brS = new THREE.Mesh(geometry_brS, material_brS); // 物体（形状,質感）
         obj_brS.position.set(-70, 10, -30); //11.5
@@ -354,7 +354,9 @@
 
         //華SAKU食堂
         const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
-        const material_SAKU = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material_SAKU = new THREE.MeshStandardMaterial({
+          color: 0x800000,
+        });
         const obj_SAKU = new THREE.Mesh(geometry_SAKU, material_SAKU); // 物体（形状,質感）
         obj_SAKU.position.set(-57, 6, -43.5); //11.5
         mainground.add(obj_SAKU); // シーンに物体を追加（接続
@@ -375,24 +377,27 @@
 
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
-          name: '.position',
-          type: 'vector',
+          name: ".position",
+          type: "vector",
           times: [0, 1, 2, 3, 4, 5],
           // 6つの時間点に対応する18個の数値を設定 (最後の座標を複製)
-          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 50, 1.5, 55]
+          values: [
+            -90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55,
+            50, 1.5, 55,
+          ],
         };
 
         var rotationKeyframeTrackJSON = {
-          name: '.rotation[y]',
-          type: 'number',
+          name: ".rotation[y]",
+          type: "number",
           times: [0, 5],
           values: [0, -Math.PI / 2],
-          interpolation: THREE.InterpolateSmooth
+          interpolation: THREE.InterpolateSmooth,
         };
 
         var clipJSON = {
           duration: 5,
-          tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
+          tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON],
         };
 
         var clip = THREE.AnimationClip.parse(clipJSON);
