@@ -276,7 +276,26 @@
 
         //AB館
         const geometry3 = new THREE.BoxGeometry(10, 32, 8); //直方体x,y,z　geometry：形　material：質感
-        const material3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
         const obj3 = new THREE.Mesh(geometry3, material3); // 物体（形状,質感）
         obj3.position.set(20, 17, -20 + 5.5); //11.5
         mainground.add(obj3); // シーンに物体を追加（接続）
