@@ -167,10 +167,33 @@
 
         //中央図書館(担当場所) - 画像テクスチャはパスが必要なため色に変更
         const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z
-        const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        const materialC = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/lavy.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/lavysabun.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/2826-1.jpg')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/lavy.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/IMG_4809.JPG')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/2826-1.jpg')
+          }) //裏面
+        ];
+        //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
         const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
         objC.position.set(42, 26, -20 + 5.5); //11.5
         mainground.add(objC); // シーンに物体を追加（接続）
+
+
 
         //公江記念館（KM）
         const KM = new THREE.BoxGeometry(19, 32, 11); //直方体x,y,z　geometry：形　material：質感
