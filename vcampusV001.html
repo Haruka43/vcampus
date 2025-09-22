@@ -546,13 +546,44 @@
         mainground.add(slope4);
 
         //教育館横歩道橋
-        const geometry_brS = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
+        const geometry_brS = new THREE.BoxGeometry(2, 2, 20); // 歩道橋本体
         const material_brS = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
-        const obj_brS = new THREE.Mesh(geometry_brS, material_brS); // 物体（形状,質感）
-        obj_brS.position.set(-70, 10, -30); //11.5
-        mainground.add(obj_brS); // シーンに物体を追加（接続)
+        const obj_brS = new THREE.Mesh(geometry_brS, material_brS);
+        obj_brS.position.set(-70, 10, -30);
+        mainground.add(obj_brS);
+
+        // ===== 階段の共通設定 =====
+        const numSteps = 19; // 段数
+        const stepWidth = 2.5; // 階段の幅
+        const stepHeight = 0.5; // 一段の高さ
+        const stepDepth = 0.8; // 一段の奥行き
+        const stepMaterial = new THREE.MeshStandardMaterial({ color: 0x8fbc8f });
+
+        // ===== 左側の階段 =====
+        const staircaseLeft = new THREE.Group();
+        for (let i = 0; i < numSteps; i++) {
+          const stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+          const step = new THREE.Mesh(stepGeometry, stepMaterial);
+          step.position.set(0, i * stepHeight, i * stepDepth);
+          staircaseLeft.add(step);
+        }
+        staircaseLeft.rotation.y = Math.PI / 2; // 左へ90度回転
+        staircaseLeft.position.set(-85, 1, -38.5);
+        mainground.add(staircaseLeft);
+
+        // ===== ここから右側の階段を追加 =====
+        const staircaseRight = new THREE.Group();
+        for (let i = 0; i < numSteps; i++) {
+          const stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+          const step = new THREE.Mesh(stepGeometry, stepMaterial);
+          step.position.set(0, i * stepHeight, i * stepDepth);
+          staircaseRight.add(step);
+        }
+        staircaseRight.rotation.y = -Math.PI / 2; // 右へ90度回転
+        staircaseRight.position.set(-55, 1, -22); // 歩道橋の右端に接続するように配置
+        mainground.add(staircaseRight);
 
         //華SAKU食堂
         const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
