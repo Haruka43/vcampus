@@ -95,6 +95,16 @@
           mainground.add(objTRm); // シーンに物体を追加（接続）
         }
 
+        // 電車を追加
+        const trainGeometry = new THREE.BoxGeometry(20, 10, 8); // 電車の形状
+        const trainMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ色
+        const train = new THREE.Mesh(trainGeometry, trainMaterial);
+        train.position.set(-980, 15, -90); // 線路の端に配置 (高さは線路より少し上)
+        mainground.add(train);
+
+        let trainDirection = 1; // 1は右方向、-1は左方向
+        const trainSpeed = 90; // 電車の速度 (単位/秒)
+        const trackLength = 1960; // 線路の全長 (-980 から 980)
         ///////////////////////////////////////////
 
         //第2体育館
@@ -409,6 +419,14 @@
 
           // mixerを更新
           mixer.update(delta);
+
+          // 電車の位置を更新
+          train.position.x += trainDirection * trainSpeed * delta;
+
+          // 線路の端に到達したら方向を反転
+          if (train.position.x >= 980 || train.position.x <= -980) {
+            trainDirection *= -1;
+          }
 
           controls.update(); // マウスによる回転制御を反映
           renderer.render(scene, camera); // レンダリング
