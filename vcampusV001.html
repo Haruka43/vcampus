@@ -78,14 +78,14 @@
         ////////////////////////////////////////////
 
         //線路（高架）
-        const geometryTR = new THREE.BoxGeometry(2000, 8, 8); //直方体x,y,z　geometry：形　material：質感
+        const geometryTR = new THREE.BoxGeometry(500, 8, 8); //直方体x,y,z　geometry：形　material：質感
         const materialTR = new THREE.MeshStandardMaterial({ color: 0xbb0c4de }); //線路高架色
         const objTR = new THREE.Mesh(geometryTR, materialTR); // 物体（形状,質感）
         objTR.position.set(0, 5, -90); //11.5
         mainground.add(objTR); // シーンに物体を追加（接続）
 
         //線路
-        const geometryTRl1 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const geometryTRl1 = new THREE.PlaneGeometry(500, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl1 = new THREE.MeshStandardMaterial({
           color: 0x696969
         });
@@ -94,7 +94,7 @@
         objTRl1.rotation.x = -Math.PI / 2;
         mainground.add(objTRl1); // シーンに物体を追加
 
-        const geometryTRl2 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const geometryTRl2 = new THREE.PlaneGeometry(500, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl2 = new THREE.MeshStandardMaterial({
           color: 0x696969
         });
@@ -105,7 +105,7 @@
 
         //まくら木
 
-        for (let i = -1000; i < 1000; i += 9) {
+        for (let i = -300; i < 300; i += 9) {
           const geometryTRm = new THREE.BoxGeometry(3, 1, 7); //直方体x,y,z　geometry：形　material：質感
           const materialTRm = new THREE.MeshStandardMaterial({
             color: 0x86564f
