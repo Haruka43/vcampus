@@ -95,6 +95,16 @@
           mainground.add(objTRm); // シーンに物体を追加（接続）
         }
 
+        // 電車を追加
+        const trainGeometry = new THREE.BoxGeometry(20, 10, 8); // 電車の形状
+        const trainMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ色
+        const train = new THREE.Mesh(trainGeometry, trainMaterial);
+        train.position.set(-980, 15, -90); // 線路の端に配置 (高さは線路より少し上)
+        mainground.add(train);
+
+        let trainDirection = 1; // 1は右方向、-1は左方向
+        const trainSpeed = 90; // 電車の速度 (単位/秒)
+        const trackLength = 1960; // 線路の全長 (-980 から 980)
         ///////////////////////////////////////////
 
         //第2体育館
@@ -343,6 +353,43 @@
         obj_br4.position.set(10, 10, -31); //11.5
         mainground.add(obj_br4); // シーンに物体を追加（接続)
 
+        // ===== ここから4つのスロープを修正 =====
+
+        // スロープの共通設定
+        const slopeLength = 15; // スロープの長さ
+        const slopeWidth = 2; // スロープの幅
+        const slopeHeight = 1; // スロープの厚み
+        const slopeAngle = Math.PI / 2.5; // スロープの傾斜角度
+        const slopeMaterial = new THREE.MeshStandardMaterial({ color: 0x8fbc8f });
+
+        // スロープ用のジオメトリ (向きに合わせて2種類作成)
+        const slopeGeometryX = new THREE.BoxGeometry(slopeLength, slopeHeight, slopeWidth); // Z軸方向に伸びるスロープ
+        const slopeGeometryZ = new THREE.BoxGeometry(slopeWidth, slopeHeight, slopeLength); // X軸方向に伸びるスロープ
+
+        // スロープ1 (奥側: Z-方向)
+        const slope1 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
+        slope1.position.set(0, 1 + (10 - 1) / 2, -22 - slopeLength / 2);
+        slope1.rotation.z = -slopeAngle;
+        mainground.add(slope1);
+
+        // スロープ2 (手前側: Z+方向)
+        const slope2 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
+        slope2.position.set(0, 1 + (10 - 1) / 2, -40 + slopeLength / 2);
+        slope2.rotation.z = slopeAngle;
+        mainground.add(slope2);
+
+        // スロープ3 (左側: X-方向)
+        const slope3 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
+        slope3.position.set(-10 - slopeLength / 2, 1 + (10 - 1) / 2, -31);
+        slope3.rotation.x = slopeAngle;
+        mainground.add(slope3);
+
+        // スロープ4 (右側: X+方向)
+        const slope4 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
+        slope4.position.set(10 + slopeLength / 2, 1 + (10 - 1) / 2, -31);
+        slope4.rotation.x = -slopeAngle;
+        mainground.add(slope4);
+
         //教育館横歩道橋
         const geometry_brS = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_brS = new THREE.MeshStandardMaterial({
@@ -414,6 +461,14 @@
 
           // mixerを更新
           mixer.update(delta);
+
+          // 電車の位置を更新
+          train.position.x += trainDirection * trainSpeed * delta;
+
+          // 線路の端に到達したら方向を反転
+          if (train.position.x >= 980 || train.position.x <= -980) {
+            trainDirection *= -1;
+          }
 
           controls.update(); // マウスによる回転制御を反映
           renderer.render(scene, camera); // レンダリング
