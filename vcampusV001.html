@@ -94,11 +94,27 @@
           objTRm.position.set(i, 9, -90); //11.5
           mainground.add(objTRm); // シーンに物体を追加（接続）
         }
+        // 電車グループを作成
+        const train = new THREE.Group();
 
-        // 電車を追加
-        const trainGeometry = new THREE.BoxGeometry(20, 10, 8); // 電車の形状
-        const trainMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ色
-        const train = new THREE.Mesh(trainGeometry, trainMaterial);
+        // 上部（オレンジ）
+        const upperGeometry = new THREE.BoxGeometry(20, 20 * (2 / 3), 8); // 上2/3
+        const upperMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ
+        const upper = new THREE.Mesh(upperGeometry, upperMaterial);
+        upper.position.y = 20 * (1 / 6); // 上に少しずらす
+
+        // 下部（肌色）
+        const lowerGeometry = new THREE.BoxGeometry(20, 20 * (1 / 3), 8); // 下1/3
+        const lowerMaterial = new THREE.MeshStandardMaterial({ color: 0xffe4c4 }); // 肌色 (bisque)
+        const lower = new THREE.Mesh(lowerGeometry, lowerMaterial);
+        lower.position.y = -(20 * (1 / 3)); // 下に配置
+
+        // グループに追加
+        train.add(upper);
+        train.add(lower);
+
+        // シーンに追加
+        scene.add(train);
 
         // ===== ここから車輪のコードを追加 =====
 
