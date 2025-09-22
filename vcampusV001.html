@@ -302,14 +302,53 @@
 
         //AB塔
         const geometry4 = new THREE.BoxGeometry(2, 44, 5); //直方体x,y,z　geometry：形　material：質感
-        const material4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material4 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
         const obj4 = new THREE.Mesh(geometry4, material4); // 物体（形状,質感）
         obj4.position.set(12, 23, -15); //11.5
         mainground.add(obj4); // シーンに物体を追加（接続）
 
         //AB渡り廊下
         const geometry5 = new THREE.BoxGeometry(2, 32, 2); //直方体x,y,z　geometry：形　material：質感
-        const material5 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material5 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+
         const obj5 = new THREE.Mesh(geometry5, material5); // 物体（形状,質感）
         obj5.position.set(14, 17, -15); //11.5
         mainground.add(obj5); // シーンに物体を追加（接続）
