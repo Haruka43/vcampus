@@ -116,11 +116,25 @@
         }
 
         // 電車を追加
-        const trainGeometry = new THREE.BoxGeometry(20, 10, 8); // 電車の形状
-        const trainMaterial = new THREE.MeshStandardMaterial({
-          color: 0xffa500
-        }); // オレンジ色
-        const train = new THREE.Mesh(trainGeometry, trainMaterial);
+
+        // 電車の下半分 (クリーム色) -> 1/3に変更
+        const trainBottomGeometry = new THREE.BoxGeometry(20, 10 / 3, 8); // 高さを全体の1/3 (約3.33) に変更
+        const trainBottomMaterial = new THREE.MeshStandardMaterial({ color: 0xe0e0e0 }); // クリーム色に近い灰色
+        const trainBottom = new THREE.Mesh(trainBottomGeometry, trainBottomMaterial);
+        // 新しい高さに合わせてY座標を調整
+        trainBottom.position.y = -10 / 3; // 中心Y座標を -3.33 に
+
+        // 電車の上半分 (オレンジ色) -> 2/3に変更
+        const trainTopGeometry = new THREE.BoxGeometry(20, 20 / 3, 8); // 高さを全体の2/3 (約6.67) に変更
+        const trainTopMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ色
+        const trainTop = new THREE.Mesh(trainTopGeometry, trainTopMaterial);
+        // 新しい高さに合わせてY座標を調整
+        trainTop.position.y = 10 / 6; // 中心Y座標を 1.67 に
+
+        // これら2つのパーツをまとめるグループを作成
+        const train = new THREE.Group();
+        train.add(trainBottom);
+        train.add(trainTop);
 
         // ===== ここから車輪のコードを追加 =====
 
