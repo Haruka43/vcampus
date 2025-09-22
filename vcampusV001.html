@@ -99,11 +99,47 @@
         const trainGeometry = new THREE.BoxGeometry(20, 10, 8); // 電車の形状
         const trainMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // オレンジ色
         const train = new THREE.Mesh(trainGeometry, trainMaterial);
+
+        // ===== ここから車輪のコードを追加 =====
+
+        // 車輪の形状と色を定義
+        const wheelRadius = 2.5; // 車輪の半径
+        const wheelThickness = 1; // 車輪の厚み
+        const wheelGeometry = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelThickness, 24);
+        const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 }); // 暗い灰色
+
+        // 4つの車輪を作成
+        const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel3 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel4 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+
+        // 車輪を正しい向きに回転させる (円柱は縦向きに作られるため90度回転させる)
+        wheel1.rotation.x = Math.PI / 2;
+        wheel2.rotation.x = Math.PI / 2;
+        wheel3.rotation.x = Math.PI / 2;
+        wheel4.rotation.x = Math.PI / 2;
+
+        // 車輪を電車の適切な位置に配置
+        const wheelY = -5; // 電車の下部に配置
+        const wheelXOffset = 6; // 電車の前後へのオフセット
+        const wheelZOffset = 4; // 電車の左右へのオフセット
+
+        wheel1.position.set(wheelXOffset, wheelY, wheelZOffset); // 前・右
+        wheel2.position.set(-wheelXOffset, wheelY, wheelZOffset); // 後・右
+        wheel3.position.set(wheelXOffset, wheelY, -wheelZOffset); // 前・左
+        wheel4.position.set(-wheelXOffset, wheelY, -wheelZOffset); // 後・左
+
+        // 車輪を電車オブジェクトに追加する (これで一緒に動く)
+        train.add(wheel1, wheel2, wheel3, wheel4);
+
+        // ===== ここまで =====
+
         train.position.set(-980, 15, -90); // 線路の端に配置 (高さは線路より少し上)
         mainground.add(train);
 
         let trainDirection = 1; // 1は右方向、-1は左方向
-        const trainSpeed = 90; // 電車の速度 (単位/秒)
+        const trainSpeed = 100; // 電車の速度 (単位/秒)
         const trackLength = 1960; // 線路の全長 (-980 から 980)
         ///////////////////////////////////////////
 
@@ -169,22 +205,22 @@
         const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z
         const materialC = [
           new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/lavy.png')
+            map: new THREE.TextureLoader().load('img/library.jpg')
           }), //右側面
           new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/lavysabun.png')
+            map: new THREE.TextureLoader().load('img/library.jpg')
           }), //左側面
           new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/2826-1.jpg')
+            map: new THREE.TextureLoader().load('img/library.jpg')
           }), //上部
           new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/lavy.png')
+            map: new THREE.TextureLoader().load('img/library.jpg')
           }), //底面
           new THREE.MeshStandardMaterial({
             map: new THREE.TextureLoader().load('img/library.jpg')
           }), //正面
           new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('img/2826-1.jpg')
+            map: new THREE.TextureLoader().load('img/library.jpg')
           }) //裏面
         ];
         //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
