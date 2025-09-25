@@ -269,7 +269,26 @@
 
         //公江記念館（KM）
         const KM = new THREE.BoxGeometry(19, 32, 11); //直方体x,y,z　geometry：形　material：質感
-        const materialKM = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKM = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }) //裏面
+        ];
         const objKM = new THREE.Mesh(KM, materialKM); // 物体（形状,質感）
         objKM.position.set(-19, 16, -15); //11.5
         mainground.add(objKM); // シーンに物体を追加（接続）
@@ -474,7 +493,7 @@
         mainground.add(obj_SE); // シーンに物体を追加（接続)
 
         //交差点歩道橋
-        const geometry_br1 = new THREE.BoxGeometry(20, 2.2, 2); //直方体x,y,z　geometry：形　material：質感
+        const geometry_br1 = new THREE.BoxGeometry(20, 2, 2); //直方体x,y,z　geometry：形　material：質感
         const material_br1 = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
@@ -482,7 +501,7 @@
         obj_br1.position.set(0, 10, -22); //11.5
         mainground.add(obj_br1); // シーンに物体を追加（接続)
 
-        const geometry_br2 = new THREE.BoxGeometry(2, 2.2, 20); //直方体x,y,z　geometry：形　material：質感
+        const geometry_br2 = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_br2 = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
@@ -490,7 +509,7 @@
         obj_br2.position.set(-10, 10, -31); //11.5
         mainground.add(obj_br2); // シーンに物体を追加（接続)
 
-        const geometry_br3 = new THREE.BoxGeometry(20, 2.2, 2); //直方体x,y,z　geometry：形　material：質感
+        const geometry_br3 = new THREE.BoxGeometry(20, 2, 2); //直方体x,y,z　geometry：形　material：質感
         const material_br3 = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
@@ -498,7 +517,7 @@
         obj_br3.position.set(0, 10, -40); //11.5
         mainground.add(obj_br3); // シーンに物体を追加（接続)
 
-        const geometry_br4 = new THREE.BoxGeometry(2, 2.2, 20); //直方体x,y,z　geometry：形　material：質感
+        const geometry_br4 = new THREE.BoxGeometry(2, 2, 20); //直方体x,y,z　geometry：形　material：質感
         const material_br4 = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
@@ -509,10 +528,10 @@
         // ===== ここから4つのスロープを修正 =====
 
         // スロープの共通設定
-        const slopeLength = 14.2; // スロープの長さ
+        const slopeLength = 15; // スロープの長さ
         const slopeWidth = 2; // スロープの幅
-        const slopeHeight = 0.4; // スロープの厚み
-        const slopeAngle = Math.PI / 4.2; // スロープの傾斜角度
+        const slopeHeight = 1; // スロープの厚み
+        const slopeAngle = Math.PI / 2.5; // スロープの傾斜角度
         const slopeMaterial = new THREE.MeshStandardMaterial({
           color: 0x8fbc8f
         });
@@ -523,25 +542,25 @@
 
         // スロープ1 (奥側: Z-方向)
         const slope1 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
-        slope1.position.set(16, 6, -22);
+        slope1.position.set(0, 1 + (10 - 1) / 2, -22 - slopeLength / 2);
         slope1.rotation.z = -slopeAngle;
         mainground.add(slope1);
 
         // スロープ2 (手前側: Z+方向)
         const slope2 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
-        slope2.position.set(-16, 6, -40);
+        slope2.position.set(0, 1 + (10 - 1) / 2, -40 + slopeLength / 2);
         slope2.rotation.z = slopeAngle;
         mainground.add(slope2);
 
         // スロープ3 (左側: X-方向)
         const slope3 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
-        slope3.position.set(-8, 6, -16);
+        slope3.position.set(-10 - slopeLength / 2, 1 + (10 - 1) / 2, -31);
         slope3.rotation.x = slopeAngle;
         mainground.add(slope3);
 
         // スロープ4 (右側: X+方向)
         const slope4 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
-        slope4.position.set(10, 6, -46);
+        slope4.position.set(10 + slopeLength / 2, 1 + (10 - 1) / 2, -31);
         slope4.rotation.x = -slopeAngle;
         mainground.add(slope4);
 
