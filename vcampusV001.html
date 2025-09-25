@@ -608,6 +608,13 @@
         obj_PS.position.set(-42.5, 9, -45.5); //11.5
         mainground.add(obj_PS); // シーンに物体を追加（接続
 
+        // 体育研究棟
+        const geometry_G = new THREE.BoxGeometry(7, 12, 14); //直方体x,y,z　geometry：形　material：質感
+        const material_G = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj_G = new THREE.Mesh(geometry_G, material_G); // 物体（形状,質感）
+        obj_G.position.set(-56, 6, 20); //11.5
+        mainground.add(obj_G);
+
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
           name: '.position',
