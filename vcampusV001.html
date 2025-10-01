@@ -231,14 +231,56 @@
 
         //L2
         const geometryd3 = new THREE.BoxGeometry(9, 20, 18);
-        const materiald3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materiald3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学二号館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学二号館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
         const objd3 = new THREE.Mesh(geometryd3, materiald3);
         objd3.position.set(62, 10, -0);
         mainground.add(objd3); // シーンに物体を追加（接続）
 
         //文学１号館（L1）
         const geometry_L1 = new THREE.BoxGeometry(12.5, 40, 8.3); // 横, 高さ(１３階×４m), 縦
-        const material_L1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material_L1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館正面.png')
+          }) //裏面
+        ];
         const obj_L1 = new THREE.Mesh(geometry_L1, material_L1); // 物体（形状,質感）
         obj_L1.position.set(60, 20, -20 + 5.5);
         mainground.add(obj_L1); // シーンに物体を追加（接続）
@@ -406,28 +448,135 @@
 
         //公江記念講堂
         const geometryKK = new THREE.BoxGeometry(16, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKK = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
+
         const objKK = new THREE.Mesh(geometryKK, materialKK); // 物体（形状,質感）
         objKK.position.set(22, 13, 12 + 5.5); //11.5
         mainground.add(objKK); // シーンに物体を追加（接続）
+
         //公江端っこ
         const geometryKK1 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
-        const materialKK1 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKK1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
         const objKK1 = new THREE.Mesh(geometryKK1, materialKK1); // 物体（形状,質感）
         objKK1.position.set(22, 13, 3.5 + 5.5); //11.5
         mainground.add(objKK1); // シーンに物体を追加（接続）
         const geometryKK2 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK2 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKK2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
         const objKK2 = new THREE.Mesh(geometryKK2, materialKK2); // 物体（形状,質感）
         objKK2.position.set(32, 13, 12 + 5.5); //11.5
         mainground.add(objKK2); // シーンに物体を追加（接続）
         const geometryKK3 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
-        const materialKK3 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKK3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
         const objKK3 = new THREE.Mesh(geometryKK3, materialKK3); // 物体（形状,質感）
         objKK3.position.set(22, 13, 21 + 5.5); //11.5
         mainground.add(objKK3); // シーンに物体を追加（接続）
         const geometryKK4 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
-        const materialKK4 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialKK4 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
         const objKK4 = new THREE.Mesh(geometryKK4, materialKK4); // 物体（形状,質感）
         objKK4.position.set(12, 13, 12 + 5.5); //11.5
         mainground.add(objKK4); // シーンに物体を追加（接続）
@@ -712,8 +861,8 @@
         // ===== 支柱の追加 =====
 
         // 支柱の共通設定
-        const pillarWidth = 1.5;   // 支柱の太さ
-        const pillarDepth = 1.5;   // 支柱の奥行き
+        const pillarWidth = 1.5; // 支柱の太さ
+        const pillarDepth = 1.5; // 支柱の奥行き
         const pillarHeight = 10; // 支柱の高さ
         const pillarMaterial = new THREE.MeshStandardMaterial({
           color: 0x556b2f // 濃い緑系で橋と調和
