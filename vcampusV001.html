@@ -444,7 +444,7 @@
         const objM = new THREE.Mesh(geometryM, materialM); // 物体（形状,質感）
         objM.position.set(38, 10, 56); //11.5
         mainground.add(objM); // シーンに物体を追加（接続）
-        
+
         //健康科学館A
         const geometryHS = new THREE.BoxGeometry(15, 16, 9); //直方体x,y,z　geometry：形　material：質感
         const materialHS = new THREE.MeshStandardMaterial({ color: 0x800000 });
@@ -613,7 +613,26 @@
 
         //学校教育館
         const geometry_SE = new THREE.BoxGeometry(24, 21, 18); //直方体x,y,z　geometry：形　material：質感
-        const material_SE = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material_SE = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
         const obj_SE = new THREE.Mesh(geometry_SE, material_SE); // 物体（形状,質感）
         obj_SE.position.set(-79, 10.5, -53); //11.5
         mainground.add(obj_SE); // シーンに物体を追加（接続)
