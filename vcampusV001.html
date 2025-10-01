@@ -709,6 +709,39 @@
         slope4.rotation.x = -slopeAngle;
         mainground.add(slope4);
 
+        // ===== 支柱の追加 =====
+
+        // 支柱の共通設定
+        const pillarWidth = 1.5;   // 支柱の太さ
+        const pillarDepth = 1.5;   // 支柱の奥行き
+        const pillarHeight = 10; // 支柱の高さ
+        const pillarMaterial = new THREE.MeshStandardMaterial({
+          color: 0x556b2f // 濃い緑系で橋と調和
+        });
+
+        // 支柱のジオメトリ
+        const pillarGeometry = new THREE.BoxGeometry(pillarWidth, pillarHeight, pillarDepth);
+
+        // 支柱1 (左手前)
+        const pillar1 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar1.position.set(-10, 5, -23.5); // y=5 は高さの半分で地面に接地
+        mainground.add(pillar1);
+
+        // 支柱2 (右手前)
+        const pillar2 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar2.position.set(10, 5, -23.5);
+        mainground.add(pillar2);
+
+        // 支柱3 (左奥)
+        const pillar3 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar3.position.set(-10, 5, -39.5);
+        mainground.add(pillar3);
+
+        // 支柱4 (右奥)
+        const pillar4 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar4.position.set(10, 5, -39.5);
+        mainground.add(pillar4);
+
         //教育館横歩道橋
         const geometry_brS = new THREE.BoxGeometry(2, 2, 20); // 歩道橋本体
         const material_brS = new THREE.MeshStandardMaterial({
