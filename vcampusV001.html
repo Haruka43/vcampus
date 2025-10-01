@@ -776,7 +776,26 @@
 
         // 体育研究棟
         const geometry_G = new THREE.BoxGeometry(7, 12, 14); //直方体x,y,z　geometry：形　material：質感
-        const material_G = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material_G = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
         const obj_G = new THREE.Mesh(geometry_G, material_G); // 物体（形状,質感）
         obj_G.position.set(-56, 6, 20); //11.5
         mainground.add(obj_G);
