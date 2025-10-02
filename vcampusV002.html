@@ -210,69 +210,66 @@
           mainground.add(objTRm); // シーンに物体を追加（接続）
         }
 
-        // 電車を追加
+        // ===== 電車1両分 =====
+        function createTrainCar() {
+          // 下半分
+          const trainBottomGeometry = new THREE.BoxGeometry(20, 10 / 3, 8);
+          const trainBottomMaterial = new THREE.MeshStandardMaterial({ color: 0xe0e0e0 });
+          const trainBottom = new THREE.Mesh(trainBottomGeometry, trainBottomMaterial);
+          trainBottom.position.y = -10 / 3;
 
-        // 電車の下半分 (クリーム色) -> 1/3に変更
-        const trainBottomGeometry = new THREE.BoxGeometry(20, 10 / 3, 8); // 高さを全体の1/3 (約3.33) に変更
-        const trainBottomMaterial = new THREE.MeshStandardMaterial({
-          color: 0xe0e0e0
-        }); // クリーム色に近い灰色
-        const trainBottom = new THREE.Mesh(trainBottomGeometry, trainBottomMaterial);
-        // 新しい高さに合わせてY座標を調整
-        trainBottom.position.y = -10 / 3; // 中心Y座標を -3.33 に
+          // 上半分
+          const trainTopGeometry = new THREE.BoxGeometry(20, 20 / 3, 8);
+          const trainTopMaterial = new THREE.MeshStandardMaterial({ color: 0xffa500 });
+          const trainTop = new THREE.Mesh(trainTopGeometry, trainTopMaterial);
+          trainTop.position.y = 10 / 6;
 
-        // 電車の上半分 (オレンジ色) -> 2/3に変更
-        const trainTopGeometry = new THREE.BoxGeometry(20, 20 / 3, 8); // 高さを全体の2/3 (約6.67) に変更
-        const trainTopMaterial = new THREE.MeshStandardMaterial({
-          color: 0xffa500
-        }); // オレンジ色
-        const trainTop = new THREE.Mesh(trainTopGeometry, trainTopMaterial);
-        // 新しい高さに合わせてY座標を調整
-        trainTop.position.y = 10 / 6; // 中心Y座標を 1.67 に
+          // 車両グループ
+          const car = new THREE.Group();
+          car.add(trainBottom);
+          car.add(trainTop);
 
-        // これら2つのパーツをまとめるグループを作成
+          // ===== 車輪追加 =====
+          const wheelRadius = 2.5;
+          const wheelThickness = 1;
+          const wheelGeometry = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelThickness, 24);
+          const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+
+          const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          const wheel3 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          const wheel4 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+
+          wheel1.rotation.x = Math.PI / 2;
+          wheel2.rotation.x = Math.PI / 2;
+          wheel3.rotation.x = Math.PI / 2;
+          wheel4.rotation.x = Math.PI / 2;
+
+          const wheelY = -5;
+          const wheelXOffset = 6;
+          const wheelZOffset = 4;
+
+          wheel1.position.set(wheelXOffset, wheelY, wheelZOffset);
+          wheel2.position.set(-wheelXOffset, wheelY, wheelZOffset);
+          wheel3.position.set(wheelXOffset, wheelY, -wheelZOffset);
+          wheel4.position.set(-wheelXOffset, wheelY, -wheelZOffset);
+
+          car.add(wheel1, wheel2, wheel3, wheel4);
+
+          return car;
+        }
+
+        // ===== 8両編成 =====
         const train = new THREE.Group();
-        train.add(trainBottom);
-        train.add(trainTop);
+        const carSpacing = 22; // 車両間の間隔
 
-        // ===== ここから車輪のコードを追加 =====
+        for (let i = 0; i < 8; i++) {
+          const car = createTrainCar();
+          car.position.x = -i * carSpacing; // 1両ごとに後ろにずらす
+          train.add(car);
+        }
 
-        // 車輪の形状と色を定義
-        const wheelRadius = 2.5; // 車輪の半径
-        const wheelThickness = 1; // 車輪の厚み
-        const wheelGeometry = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelThickness, 24);
-        const wheelMaterial = new THREE.MeshStandardMaterial({
-          color: 0x333333
-        }); // 暗い灰色
-
-        // 4つの車輪を作成
-        const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-        const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-        const wheel3 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-        const wheel4 = new THREE.Mesh(wheelGeometry, wheelMaterial);
-
-        // 車輪を正しい向きに回転させる (円柱は縦向きに作られるため90度回転させる)
-        wheel1.rotation.x = Math.PI / 2;
-        wheel2.rotation.x = Math.PI / 2;
-        wheel3.rotation.x = Math.PI / 2;
-        wheel4.rotation.x = Math.PI / 2;
-
-        // 車輪を電車の適切な位置に配置
-        const wheelY = -5; // 電車の下部に配置
-        const wheelXOffset = 6; // 電車の前後へのオフセット
-        const wheelZOffset = 4; // 電車の左右へのオフセット
-
-        wheel1.position.set(wheelXOffset, wheelY, wheelZOffset); // 前・右
-        wheel2.position.set(-wheelXOffset, wheelY, wheelZOffset); // 後・右
-        wheel3.position.set(wheelXOffset, wheelY, -wheelZOffset); // 前・左
-        wheel4.position.set(-wheelXOffset, wheelY, -wheelZOffset); // 後・左
-
-        // 車輪を電車オブジェクトに追加する (これで一緒に動く)
-        train.add(wheel1, wheel2, wheel3, wheel4);
-
-        // ===== ここまで =====
-
-        train.position.set(-2000, 15, -90); // 線路の端に配置 (高さは線路より少し上)
+        train.position.set(-2000, 15, -90); // 線路に配置
         mainground.add(train);
 
         let trainDirection = 1; // 1は右方向、-1は左方向
