@@ -78,14 +78,14 @@
         ////////////////////////////////////////////
 
         //線路（高架）
-        const geometryTR = new THREE.BoxGeometry(2000, 8, 8); //直方体x,y,z　geometry：形　material：質感
+        const geometryTR = new THREE.BoxGeometry(500, 8, 8); //直方体x,y,z　geometry：形　material：質感
         const materialTR = new THREE.MeshStandardMaterial({ color: 0xbb0c4de }); //線路高架色
         const objTR = new THREE.Mesh(geometryTR, materialTR); // 物体（形状,質感）
         objTR.position.set(0, 5, -90); //11.5
         mainground.add(objTR); // シーンに物体を追加（接続）
 
         //線路
-        const geometryTRl1 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const geometryTRl1 = new THREE.PlaneGeometry(500, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl1 = new THREE.MeshStandardMaterial({
           color: 0x696969
         });
@@ -94,7 +94,7 @@
         objTRl1.rotation.x = -Math.PI / 2;
         mainground.add(objTRl1); // シーンに物体を追加
 
-        const geometryTRl2 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const geometryTRl2 = new THREE.PlaneGeometry(500, 1, 1, 1); //平面w,h,dw,dh
         const materialTRl2 = new THREE.MeshStandardMaterial({
           color: 0x696969
         });
@@ -105,7 +105,7 @@
 
         //まくら木
 
-        for (let i = -1000; i < 1000; i += 9) {
+        for (let i = -250; i < 250; i += 9) {
           const geometryTRm = new THREE.BoxGeometry(3, 1, 7); //直方体x,y,z　geometry：形　material：質感
           const materialTRm = new THREE.MeshStandardMaterial({
             color: 0x86564f
@@ -182,7 +182,7 @@
 
         let trainDirection = 1; // 1は右方向、-1は左方向
         const trainSpeed = 100; // 電車の速度 (単位/秒)
-        const trackLength = 2000; // 線路の全長 (-980 から 980)
+        const trackLength = 500; // 線路の全長 (-980 から 980)
         ///////////////////////////////////////////
 
         //第2体育館
@@ -639,7 +639,28 @@
 
         //健康科学館A
         const geometryHS = new THREE.BoxGeometry(15, 16, 9); //直方体x,y,z　geometry：形　material：質感
-        const materialHS = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialHS = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }) //裏面
+        ];
         const objHS = new THREE.Mesh(geometryHS, materialHS); // 物体（形状,質感）
         objHS.position.set(31, 8, 41); //11.5
         mainground.add(objHS); // シーンに物体を追加（接続）
