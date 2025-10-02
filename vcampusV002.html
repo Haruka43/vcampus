@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="ja" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>Information Mathematics for Games</title>
+    <script src="three.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script type="text/javascript">
+      //<![CDATA[
+      var g; // グラフィックウィンドウ（固定）
+
+      function init() {
+        // 初期化（固定）
+        const width = 800; // 3Dキャンバスの幅
+        const height = 600; // 3Dキャンバスの高さ
+
+        const renderer = new THREE.WebGLRenderer({
+          // レンダラー（投影計算）を作成
+          canvas: document.querySelector('#canvassample')
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(width, height);
+        renderer.setClearColor(0xafeeee); // 背景色
+
+        const scene = new THREE.Scene(); // シーングラフのルートを生成
+
+        const loader = new THREE.TextureLoader();
+        // 画像がない場合を考慮し、コメントアウトまたは実際のパスを指定してください
+        // loader.load('img/sky.jpg', function (texture) {
+        //   scene.background = texture;
+        // }); // 背景画像を読み込む
+
+        const camera = new THREE.PerspectiveCamera(45, width / height); // カメラを生成
+        //camera.position.set(0, 10, +241); // カメラ（視点）の位置（2.41m）を設置×100
+        //camera.rotation.y=-Math.PI/2;
+        camera.position.set(-500, 50, -100);
+        camera.lookAt(0, 0, 0);
+        const controls = new THREE.OrbitControls(camera, renderer.domElement); // マウスによる回転制御
+        controls.enableDamping = true; // マウス制御の設定
+        controls.dampingFactor = 0.2; // マウス制御の設定
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff); // 平行光源 太陽光
+        directionalLight.position.set(1, 1, 1); // 光源の位置を設置（原点方向）
+        scene.add(directionalLight); // シーンに光源を追加  add:結ぶ
+        const ambientlight = new THREE.AmbientLight(0xffffff, 0.4); //環境光(色,強さ)
+        scene.add(ambientlight);
+        //scene.add(camera);
+
+        /*const renderer = new THREE.WebGLRenderer({
+          // レンダラー（投影計算）を作成
+          canvas: document.querySelector('#canvassample')
+        });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(width, height);
+        renderer.setClearColor(0xafeeee); // 背景色
+
+        const scene = new THREE.Scene(); // シーングラフのルートを生成
+
+        const loader = new THREE.TextureLoader();
+        // 画像がない場合を考慮し、コメントアウトまたは実際のパスを指定してください
+        // loader.load('img/sky.jpg', function (texture) {
+        //   scene.background = texture;
+        // }); // 背景画像を読み込む
+
+        const camera = new THREE.PerspectiveCamera(45, width / height); // カメラを生成
+        camera.position.set(0, 10, +241); // カメラ（視点）の位置（2.41m）を設置×100
+        const controls = new THREE.OrbitControls(camera, renderer.domElement); // マウスによる回転制御
+        controls.enableDamping = true; // マウス制御の設定
+        controls.dampingFactor = 0.2; // マウス制御の設定
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff); // 平行光源 太陽光
+        directionalLight.position.set(1, 1, 1); // 光源の位置を設置（原点方向）
+        scene.add(directionalLight); // シーンに光源を追加  add:結ぶ
+        const ambientlight = new THREE.AmbientLight(0xffffff, 0.4); //環境光(色,強さ)
+        scene.add(ambientlight);*/
+
+        const mainground = new THREE.Group(); // グループを作成
+        mainground.scale.set(1, 0.75, 1); // グループのスケールを設定
+        scene.add(mainground); // シーンにグループを追加
+
+        /*const rotationsX = [
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0),0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),-Math.PI/6),//0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),0),// 0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),-Math.PI/6),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),0),// -Math.PI/6),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(), 0),
+        ];
+        const rotationsY = [
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-Math.PI/2),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),//0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2)
+        ];
+        const rotationsZ = [
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),-Math.PI/6),//0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),0),// 0),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),-Math.PI/6),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),0),// -Math.PI/6),
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(), 0),
+        ];*/
+
+        const rotations = [
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI / 4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0))
+        ];
+        var positionKF = new THREE.VectorKeyframeTrack(
+          '.position',
+          [0, 1, 2, 3, 4, 5],
+          [-500, 50, -100, -300, 50, -100, -100, 150, -100, -10, 30, -100, -2, 20, -30, 0, 5, 0],
+          THREE.InterpolateSmooth
+        );
+        var quaternionKF = new THREE.QuaternionKeyframeTrack(
+          '.quaternion',
+          [0, 1, 2, 3, 4, 5],
+          rotations.map((q) => [q.x, q.y, q.z, q.w]).flat(),
+          THREE.InterpolateSmooth
+        );
+        //var quaternionXKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsX.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
+        //var quaternionZKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsZ.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
+
+        var clip = new THREE.AnimationClip('Action', 5, [positionKF, quaternionKF]);
+        var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
+        var action = mixer.clipAction(clip);
+        action.play();
+
+        // 修正箇所２：Clockの追加
+        const clock = new THREE.Clock();
+
+        function animate() {
+          // 経過時間を取得
+          const delta = clock.getDelta();
+
+          // mixerを更新
+          mixer.update(delta);
+
+          // 電車の移動処理
+          train.position.x += trainDirection * trainSpeed * delta;
+
+          // 端に到達したら反転
+          if (train.position.x > trackLength / 2 - 20) {
+            trainDirection = -1;
+          } else if (train.position.x < -trackLength / 2 + 20) {
+            trainDirection = 1;
+          }
+
+          //controls.update(); // マウスによる回転制御を反映
+          renderer.render(scene, camera); // レンダリング
+          requestAnimationFrame(animate); // シーン表示を更新
+        }
+
+        const geometry = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
+        const material = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館屋根.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+
+        const obj = new THREE.Mesh(geometry, material); // 物体（形状,質感）
+        obj.position.set(-60 + 11.5, 10, -20 + 5.5); //11.5
+        mainground.add(obj); // シーンに物体を追加（接続）
+
+        ////////////////////////////////////////////
+
+        //線路（高架）
+        const geometryTR = new THREE.BoxGeometry(2000, 8, 8); //直方体x,y,z　geometry：形　material：質感
+        const materialTR = new THREE.MeshStandardMaterial({ color: 0xbb0c4de }); //線路高架色
+        const objTR = new THREE.Mesh(geometryTR, materialTR); // 物体（形状,質感）
+        objTR.position.set(0, 5, -90); //11.5
+        mainground.add(objTR); // シーンに物体を追加（接続）
+
+        //線路
+        const geometryTRl1 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const materialTRl1 = new THREE.MeshStandardMaterial({
+          color: 0x696969
+        });
+        const objTRl1 = new THREE.Mesh(geometryTRl1, materialTRl1); // 2つ目の物体もsceneに付け加えた
+        objTRl1.position.set(0, 10, -88);
+        objTRl1.rotation.x = -Math.PI / 2;
+        mainground.add(objTRl1); // シーンに物体を追加
+
+        const geometryTRl2 = new THREE.PlaneGeometry(2000, 1, 1, 1); //平面w,h,dw,dh
+        const materialTRl2 = new THREE.MeshStandardMaterial({
+          color: 0x696969
+        });
+        const objTRl2 = new THREE.Mesh(geometryTRl2, materialTRl2); // 2つ目の物体もsceneに付け加えた
+        objTRl2.position.set(0, 10, -92);
+        objTRl2.rotation.x = -Math.PI / 2;
+        mainground.add(objTRl2); // シーンに物体を追加
+
+        //まくら木
+
+        for (let i = -1000; i < 1000; i += 9) {
+          const geometryTRm = new THREE.BoxGeometry(3, 1, 7); //直方体x,y,z　geometry：形　material：質感
+          const materialTRm = new THREE.MeshStandardMaterial({
+            color: 0x86564f
+          }); //線路高架色
+          const objTRm = new THREE.Mesh(geometryTRm, materialTRm); // 物体（形状,質感）
+          objTRm.position.set(i, 9, -90); //11.5
+          mainground.add(objTRm); // シーンに物体を追加（接続）
+        }
+
+        // 電車を追加
+
+        // 電車の下半分 (クリーム色) -> 1/3に変更
+        const trainBottomGeometry = new THREE.BoxGeometry(20, 10 / 3, 8); // 高さを全体の1/3 (約3.33) に変更
+        const trainBottomMaterial = new THREE.MeshStandardMaterial({
+          color: 0xe0e0e0
+        }); // クリーム色に近い灰色
+        const trainBottom = new THREE.Mesh(trainBottomGeometry, trainBottomMaterial);
+        // 新しい高さに合わせてY座標を調整
+        trainBottom.position.y = -10 / 3; // 中心Y座標を -3.33 に
+
+        // 電車の上半分 (オレンジ色) -> 2/3に変更
+        const trainTopGeometry = new THREE.BoxGeometry(20, 20 / 3, 8); // 高さを全体の2/3 (約6.67) に変更
+        const trainTopMaterial = new THREE.MeshStandardMaterial({
+          color: 0xffa500
+        }); // オレンジ色
+        const trainTop = new THREE.Mesh(trainTopGeometry, trainTopMaterial);
+        // 新しい高さに合わせてY座標を調整
+        trainTop.position.y = 10 / 6; // 中心Y座標を 1.67 に
+
+        // これら2つのパーツをまとめるグループを作成
+        const train = new THREE.Group();
+        train.add(trainBottom);
+        train.add(trainTop);
+
+        // ===== ここから車輪のコードを追加 =====
+
+        // 車輪の形状と色を定義
+        const wheelRadius = 2.5; // 車輪の半径
+        const wheelThickness = 1; // 車輪の厚み
+        const wheelGeometry = new THREE.CylinderGeometry(wheelRadius, wheelRadius, wheelThickness, 24);
+        const wheelMaterial = new THREE.MeshStandardMaterial({
+          color: 0x333333
+        }); // 暗い灰色
+
+        // 4つの車輪を作成
+        const wheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel2 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel3 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        const wheel4 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+
+        // 車輪を正しい向きに回転させる (円柱は縦向きに作られるため90度回転させる)
+        wheel1.rotation.x = Math.PI / 2;
+        wheel2.rotation.x = Math.PI / 2;
+        wheel3.rotation.x = Math.PI / 2;
+        wheel4.rotation.x = Math.PI / 2;
+
+        // 車輪を電車の適切な位置に配置
+        const wheelY = -5; // 電車の下部に配置
+        const wheelXOffset = 6; // 電車の前後へのオフセット
+        const wheelZOffset = 4; // 電車の左右へのオフセット
+
+        wheel1.position.set(wheelXOffset, wheelY, wheelZOffset); // 前・右
+        wheel2.position.set(-wheelXOffset, wheelY, wheelZOffset); // 後・右
+        wheel3.position.set(wheelXOffset, wheelY, -wheelZOffset); // 前・左
+        wheel4.position.set(-wheelXOffset, wheelY, -wheelZOffset); // 後・左
+
+        // 車輪を電車オブジェクトに追加する (これで一緒に動く)
+        train.add(wheel1, wheel2, wheel3, wheel4);
+
+        // ===== ここまで =====
+
+        train.position.set(-2000, 15, -90); // 線路の端に配置 (高さは線路より少し上)
+        mainground.add(train);
+
+        let trainDirection = 1; // 1は右方向、-1は左方向
+        const trainSpeed = 100; // 電車の速度 (単位/秒)
+        const trackLength = 1980; // 線路の全長 (-980 から 980)
+        ///////////////////////////////////////////
+
+        //第2体育館
+        const geometryG2 = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
+        const materialG2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第二体育館屋根.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const objG2 = new THREE.Mesh(geometryG2, materialG2); // 物体（形状,質感）
+        objG2.position.set(-60 + 11.5, 10, 1 + 5.5); //11.5
+        mainground.add(objG2); // シーンに物体を追加（接続）
+
+        const geometry2 = new THREE.PlaneGeometry(200, 200, 1, 1); //平面w,h,dw,dh
+        const material2 = new THREE.MeshStandardMaterial({ color: 0xf5deb3 });
+        const obj2 = new THREE.Mesh(geometry2, material2); // 2つ目の物体もsceneに付け加えた
+        obj2.position.set(0, 1, 0);
+        obj2.rotation.x = -Math.PI / 2;
+        mainground.add(obj2); // シーンに物体を追加（接続）
+
+        const geometry0 = new THREE.PlaneGeometry(2000, 2000, 1, 1); //平面w,h,dw,dh
+        const material0 = new THREE.MeshStandardMaterial({
+          color: 0x90ee90,
+          side: THREE.DoubleSide
+        });
+        const obj0 = new THREE.Mesh(geometry0, material0); // 物体（形状,質感）
+        obj0.rotation.x = -Math.PI / 2;
+        mainground.add(obj0); // シーンに物体を追加（接続）
+
+        const geometryd1 = new THREE.PlaneGeometry(13, 300, 1, 1); //平面w,h,dw,dh
+        const materiald1 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+        const objd1 = new THREE.Mesh(geometryd1, materiald1); // 2つ目の物体もsceneに付け加えた
+        objd1.position.set(0, 1.2, 0);
+        objd1.rotation.x = -Math.PI / 2;
+        mainground.add(objd1); // シーンに物体を追加（接続）
+
+        const geometryd2 = new THREE.PlaneGeometry(400, 20, 1, 1); //平面w,h,dw,dh
+        const materiald2 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+        const objd2 = new THREE.Mesh(geometryd2, materiald2); // 2つ目の物体もsceneに付け加えた
+        objd2.position.set(0, 1.2, -31);
+        objd2.rotation.x = -Math.PI / 2;
+        mainground.add(objd2); // シーンに物体を追加（接続）
+
+        const g43 = new THREE.PlaneGeometry(400, 4.5, 1, 27.5); //平面w,h,dw,dh
+        const m43 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+        const objRoad43 = new THREE.Mesh(g43, m43); // 2つ目の物体もsceneに付け加えた
+        objRoad43.position.set(0, 1.2, 31);
+        objRoad43.rotation.x = -Math.PI / 2;
+        mainground.add(objRoad43); // シーンに物体を追加（接続）
+
+        //L2
+        const geometryd3 = new THREE.BoxGeometry(9, 20, 18);
+        const materiald3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学二号館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学二号館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+        const objd3 = new THREE.Mesh(geometryd3, materiald3);
+        objd3.position.set(62, 10, -0);
+        mainground.add(objd3); // シーンに物体を追加（接続）
+
+        //文学１号館（L1）
+        const geometry_L1 = new THREE.BoxGeometry(12.5, 40, 8.3); // 横, 高さ(１３階×４m), 縦
+        const material_L1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/文学一号館正面.png')
+          }) //裏面
+        ];
+        const obj_L1 = new THREE.Mesh(geometry_L1, material_L1); // 物体（形状,質感）
+        obj_L1.position.set(60, 20, -20 + 5.5);
+        mainground.add(obj_L1); // シーンに物体を追加（接続）
+
+        //中央図書館(担当場所) - 画像テクスチャはパスが必要なため色に変更
+        const C = new THREE.BoxGeometry(23, 52, 8); //直方体x,y,z
+        const materialC = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/library.jpg')
+          }) //裏面
+        ];
+        //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        //const materialC = new THREE.MeshStandardMaterial({ color: 0xdcdcdc });
+        const objC = new THREE.Mesh(C, materialC); // 物体（形状,質感）
+        objC.position.set(42, 26, -20 + 5.5); //11.5
+        mainground.add(objC); // シーンに物体を追加（接続）
+
+        //公江記念館（KM）
+        const KM = new THREE.BoxGeometry(19, 32, 11); //直方体x,y,z　geometry：形　material：質感
+        const materialKM = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }) //裏面
+        ];
+        const objKM = new THREE.Mesh(KM, materialKM); // 物体（形状,質感）
+        objKM.position.set(-19, 16, -15); //11.5
+        mainground.add(objKM); // シーンに物体を追加（接続）
+
+        //公江記念館上部（KM2)
+        const KM2 = new THREE.BoxGeometry(15, 3, 8); //直方体x,y,z　geometry：形　material：質感
+        const materialKM2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }) //裏面
+        ];
+        const objKM2 = new THREE.Mesh(KM2, materialKM2); // 物体（形状,質感）
+        objKM2.position.set(-19, 32, -15); //11.5
+        mainground.add(objKM2); // シーンに物体を追加（接続）
+
+        //AB館
+        const geometry3 = new THREE.BoxGeometry(10, 32, 8); //直方体x,y,z　geometry：形　material：質感
+        const material3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj3 = new THREE.Mesh(geometry3, material3); // 物体（形状,質感）
+        obj3.position.set(20, 17, -20 + 5.5); //11.5
+        mainground.add(obj3); // シーンに物体を追加（接続）
+
+        //AB塔
+        const geometry4 = new THREE.BoxGeometry(2, 44, 5); //直方体x,y,z　geometry：形　material：質感
+        const material4 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/AB塔.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+        const obj4 = new THREE.Mesh(geometry4, material4); // 物体（形状,質感）
+        obj4.position.set(12, 23, -15); //11.5
+        mainground.add(obj4); // シーンに物体を追加（接続）
+
+        //AB渡り廊下
+        const geometry5 = new THREE.BoxGeometry(2, 32, 2); //直方体x,y,z　geometry：形　material：質感
+        const material5 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+
+        const obj5 = new THREE.Mesh(geometry5, material5); // 物体（形状,質感）
+        obj5.position.set(14, 17, -15); //11.5
+        mainground.add(obj5); // シーンに物体を追加（接続）
+
+        //公江記念講堂
+        const geometryKK = new THREE.BoxGeometry(16, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
+
+        const objKK = new THREE.Mesh(geometryKK, materialKK); // 物体（形状,質感）
+        objKK.position.set(22, 13, 12 + 5.5); //11.5
+        mainground.add(objKK); // シーンに物体を追加（接続）
+
+        //公江端っこ
+        const geometryKK1 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
+        const materialKK1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
+        const objKK1 = new THREE.Mesh(geometryKK1, materialKK1); // 物体（形状,質感）
+        objKK1.position.set(22, 13, 3.5 + 5.5); //11.5
+        mainground.add(objKK1); // シーンに物体を追加（接続）
+        const geometryKK2 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+        const objKK2 = new THREE.Mesh(geometryKK2, materialKK2); // 物体（形状,質感）
+        objKK2.position.set(32, 13, 12 + 5.5); //11.5
+        mainground.add(objKK2); // シーンに物体を追加（接続）
+        const geometryKK3 = new THREE.BoxGeometry(16, 24, 3.5); //直方体x,y,z　geometry：形　material：質感
+        const materialKK3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }) //裏面
+        ];
+        const objKK3 = new THREE.Mesh(geometryKK3, materialKK3); // 物体（形状,質感）
+        objKK3.position.set(22, 13, 21 + 5.5); //11.5
+        mainground.add(objKK3); // シーンに物体を追加（接続）
+        const geometryKK4 = new THREE.BoxGeometry(4, 24, 16); //直方体x,y,z　geometry：形　material：質感
+        const materialKK4 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM館上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }) //裏面
+        ];
+        const objKK4 = new THREE.Mesh(geometryKK4, materialKK4); // 物体（形状,質感）
+        objKK4.position.set(12, 13, 12 + 5.5); //11.5
+        mainground.add(objKK4); // シーンに物体を追加（接続）
+
+        //東館
+        const geometry34 = new THREE.BoxGeometry(9, 35, 13);
+        const material34 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/東館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/東館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/江記念講堂の壁正面.png')
+          }) //裏面
+        ];
+        const higasi = new THREE.Mesh(geometry34, material34); // 物体（形状,質感）
+        higasi.position.set(62, 17.5, 17); //11.5
+        mainground.add(higasi); //
+
+        //音楽館
+        const geometryM = new THREE.BoxGeometry(17, 20, 8); //直方体x,y,z　geometry：形　material：質感
+        const materialM = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/音楽館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/音楽館正面.png')
+          }) //裏面
+        ];
+        const objM = new THREE.Mesh(geometryM, materialM); // 物体（形状,質感）
+        objM.position.set(38, 10, 56); //11.5
+        mainground.add(objM); // シーンに物体を追加（接続）
+
+        //健康科学館A
+        const geometryHS = new THREE.BoxGeometry(15, 16, 9); //直方体x,y,z　geometry：形　material：質感
+        const materialHS = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }) //裏面
+        ];
+        const objHS = new THREE.Mesh(geometryHS, materialHS); // 物体（形状,質感）
+        objHS.position.set(31, 8, 41); //11.5
+        mainground.add(objHS); // シーンに物体を追加（接続）
+
+        //健康科学館B
+        const geometryHS1 = new THREE.BoxGeometry(5, 16, 7); //直方体x,y,z　geometry：形　material：質感
+        const materialHS1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }) //裏面
+        ];
+        const objHS1 = new THREE.Mesh(geometryHS1, materialHS1); // 物体（形状,質感）
+        objHS1.position.set(26, 8, 48); //11.5
+        mainground.add(objHS1); // シーンに物体を追加（接続）
+
+        //健康科学館c
+        const geometryHS2 = new THREE.BoxGeometry(1, 16, 7); //直方体x,y,z　geometry：形　material：質感
+        const materialHS2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/健康科学館正面.png')
+          }) //裏面
+        ];
+
+        const objHS2 = new THREE.Mesh(geometryHS2, materialHS2); // 物体（形状,質感）
+        objHS2.position.set(26, 8, 42); //11.5
+        mainground.add(objHS2); // シーンに物体を追加（接続）
+
+        //南館S
+        const geometryS = new THREE.BoxGeometry(12, 20, 15); //直方体x,y,z　geometry：形　material：質感
+        const materialS = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/南館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/南館正面.png')
+          }) //裏面
+        ];
+        const objS = new THREE.Mesh(geometryS, materialS); // 物体（形状,質感）
+        objS.position.set(14, 10, 44.5); //11.5
+        mainground.add(objS); // シーンに物体を追加（接続）
+
+        //左側MM館
+        const geometryMM1 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
+        const materialMM1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }) //裏面
+        ];
+
+        const objMM1 = new THREE.Mesh(geometryMM1, materialMM1); // 物体（形状,質感）
+        objMM1.position.set(-28, 16, 16);
+        mainground.add(objMM1); // シーンに物体を追加（接続）
+        //右側MM館
+        const geometryMM2 = new THREE.BoxGeometry(5, 32, 19); //直方体x,y,z　geometry：形　material：質感
+        const materialMM2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }) //裏面
+        ];
+        const objMM2 = new THREE.Mesh(geometryMM2, materialMM2); // 物体（形状,質感）
+        objMM2.position.set(-14, 16, 16);
+        mainground.add(objMM2); // シーンに物体を追加（接続）
+        //下側MM館
+        const geometryMM3 = new THREE.BoxGeometry(19, 32, 5); //直方体x,y,z　geometry：形　material：質感
+        const materialMM3 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }) //裏面
+        ];
+        const objMM3 = new THREE.Mesh(geometryMM3, materialMM3); // 物体（形状,質感）
+        objMM3.position.set(-21, 16, 23);
+        mainground.add(objMM3); // シーンに物体を追加（接続）
+        //上側MM館
+        const geometryMM4 = new THREE.BoxGeometry(19, 32, 5); //直方体x,y,z　geometry：形　material：質感
+        const materialMM4 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg'),
+            transparent: true,
+            opacity: 0 // 透明
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }) //裏面
+        ];
+        const objMM4 = new THREE.Mesh(geometryMM4, materialMM4); // 物体（形状,質感）
+        objMM4.position.set(-21, 16, 9);
+        mainground.add(objMM4); // シーンに物体を追加（接続）
+        //MM真ん中
+        const geometryMM5 = new THREE.BoxGeometry(9, 12, 9); //直方体x,y,z　geometry：形　material：質感
+        const materialMM5 = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        const objMM5 = new THREE.Mesh(geometryMM5, materialMM5); // 物体（形状,質感）
+        objMM5.position.set(-21, 16, 16);
+        mainground.add(objMM5); // シーンに物体を追加（接続）
+
+        //生活環境１号館（H1）
+        const geometry_H1 = new THREE.BoxGeometry(13.5, 24, 7.5); // 横, 高さ(６階×４m), 縦
+        const material_H1 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png')
+          }) //裏面
+        ];
+        const obj_H1 = new THREE.Mesh(geometry_H1, material_H1); // 物体（形状,質感）
+        obj_H1.position.set(56, 12, 56);
+        mainground.add(obj_H1); // シーンに物体を追加（接続）
+
+        //学院記念館(MS)
+        const geometry_MS = new THREE.BoxGeometry(9, 8, 6); //直方体x,y,z　geometry：形　material：質感
+        const material_MS = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const obj_MS = new THREE.Mesh(geometry_MS, material_MS); // 物体（形状,質感）
+        obj_MS.position.set(48, 5, 46); //11.5
+        mainground.add(obj_MS); // シーンに物体を追加（接続)
+
+        //学校教育館
+        const geometry_SE = new THREE.BoxGeometry(24, 21, 18); //直方体x,y,z　geometry：形　material：質感
+        const material_SE = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj_SE = new THREE.Mesh(geometry_SE, material_SE); // 物体（形状,質感）
+        obj_SE.position.set(-79, 10.5, -53); //11.5
+        mainground.add(obj_SE); // シーンに物体を追加（接続)
+
+        //交差点歩道橋
+        const geometry_br1 = new THREE.BoxGeometry(20, 2.2, 2); //直方体x,y,z　geometry：形　material：質感
+        const material_br1 = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+        const obj_br1 = new THREE.Mesh(geometry_br1, material_br1); // 物体（形状,質感）
+        obj_br1.position.set(0, 10, -22); //11.5
+        mainground.add(obj_br1); // シーンに物体を追加（接続)
+
+        const geometry_br2 = new THREE.BoxGeometry(2, 2.2, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br2 = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+        const obj_br2 = new THREE.Mesh(geometry_br2, material_br2); // 物体（形状,質感）
+        obj_br2.position.set(-10, 10, -31); //11.5
+        mainground.add(obj_br2); // シーンに物体を追加（接続)
+
+        const geometry_br3 = new THREE.BoxGeometry(20, 2.2, 2); //直方体x,y,z　geometry：形　material：質感
+        const material_br3 = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+        const obj_br3 = new THREE.Mesh(geometry_br3, material_br3); // 物体（形状,質感）
+        obj_br3.position.set(0, 10, -40); //11.5
+        mainground.add(obj_br3); // シーンに物体を追加（接続)
+
+        const geometry_br4 = new THREE.BoxGeometry(2, 2.2, 20); //直方体x,y,z　geometry：形　material：質感
+        const material_br4 = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+        const obj_br4 = new THREE.Mesh(geometry_br4, material_br4); // 物体（形状,質感）
+        obj_br4.position.set(10, 10, -31); //11.5
+        mainground.add(obj_br4); // シーンに物体を追加（接続)
+
+        // ===== ここから4つのスロープを修正 =====
+
+        // スロープの共通設定
+        const slopeLength = 14.2; // スロープの長さ
+        const slopeWidth = 2; // スロープの幅
+        const slopeHeight = 0.4; // スロープの厚み
+        const slopeAngle = Math.PI / 4.2; // スロープの傾斜角度
+        const slopeMaterial = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+
+        // スロープ用のジオメトリ (向きに合わせて2種類作成)
+        const slopeGeometryX = new THREE.BoxGeometry(slopeLength, slopeHeight, slopeWidth); // Z軸方向に伸びるスロープ
+        const slopeGeometryZ = new THREE.BoxGeometry(slopeWidth, slopeHeight, slopeLength); // X軸方向に伸びるスロープ
+
+        // スロープ1 (奥側: Z-方向)
+        const slope1 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
+        slope1.position.set(16, 6, -22);
+        slope1.rotation.z = -slopeAngle;
+        mainground.add(slope1);
+
+        // スロープ2 (手前側: Z+方向)
+        const slope2 = new THREE.Mesh(slopeGeometryX, slopeMaterial);
+        slope2.position.set(-16, 6, -40);
+        slope2.rotation.z = slopeAngle;
+        mainground.add(slope2);
+
+        // スロープ3 (左側: X-方向)
+        const slope3 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
+        slope3.position.set(-8, 6, -16);
+        slope3.rotation.x = slopeAngle;
+        mainground.add(slope3);
+
+        // スロープ4 (右側: X+方向)
+        const slope4 = new THREE.Mesh(slopeGeometryZ, slopeMaterial);
+        slope4.position.set(10, 6, -46);
+        slope4.rotation.x = -slopeAngle;
+        mainground.add(slope4);
+
+        // ===== 支柱の追加 =====
+
+        // 支柱の共通設定
+        const pillarWidth = 1.5; // 支柱の太さ
+        const pillarDepth = 1.5; // 支柱の奥行き
+        const pillarHeight = 10; // 支柱の高さ
+        const pillarMaterial = new THREE.MeshStandardMaterial({
+          color: 0x556b2f // 濃い緑系で橋と調和
+        });
+
+        // 支柱のジオメトリ
+        const pillarGeometry = new THREE.BoxGeometry(pillarWidth, pillarHeight, pillarDepth);
+
+        // 支柱1 (左手前)
+        const pillar1 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar1.position.set(-10, 5, -23.5); // y=5 は高さの半分で地面に接地
+        mainground.add(pillar1);
+
+        // 支柱2 (右手前)
+        const pillar2 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar2.position.set(10, 5, -23.5);
+        mainground.add(pillar2);
+
+        // 支柱3 (左奥)
+        const pillar3 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar3.position.set(-10, 5, -39.5);
+        mainground.add(pillar3);
+
+        // 支柱4 (右奥)
+        const pillar4 = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        pillar4.position.set(10, 5, -39.5);
+        mainground.add(pillar4);
+
+        //教育館横歩道橋
+        const geometry_brS = new THREE.BoxGeometry(2, 2, 20); // 歩道橋本体
+        const material_brS = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+        const obj_brS = new THREE.Mesh(geometry_brS, material_brS);
+        obj_brS.position.set(-70, 10, -30);
+        mainground.add(obj_brS);
+
+        // ===== 階段の共通設定 =====
+        const numSteps = 19; // 段数
+        const stepWidth = 2.5; // 階段の幅
+        const stepHeight = 0.5; // 一段の高さ
+        const stepDepth = 0.8; // 一段の奥行き
+        const stepMaterial = new THREE.MeshStandardMaterial({
+          color: 0x8fbc8f
+        });
+
+        // ===== 左側の階段 =====
+        const staircaseLeft = new THREE.Group();
+        for (let i = 0; i < numSteps; i++) {
+          const stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+          const step = new THREE.Mesh(stepGeometry, stepMaterial);
+          step.position.set(0, i * stepHeight, i * stepDepth);
+          staircaseLeft.add(step);
+        }
+        staircaseLeft.rotation.y = Math.PI / 2; // 左へ90度回転
+        staircaseLeft.position.set(-85, 1, -38.5);
+        mainground.add(staircaseLeft);
+
+        // ===== ここから右側の階段を追加 =====
+        const staircaseRight = new THREE.Group();
+        for (let i = 0; i < numSteps; i++) {
+          const stepGeometry = new THREE.BoxGeometry(stepWidth, stepHeight, stepDepth);
+          const step = new THREE.Mesh(stepGeometry, stepMaterial);
+          step.position.set(0, i * stepHeight, i * stepDepth);
+          staircaseRight.add(step);
+        }
+        staircaseRight.rotation.y = -Math.PI / 2; // 右へ90度回転
+        staircaseRight.position.set(-55, 1, -22); // 歩道橋の右端に接続するように配置
+        mainground.add(staircaseRight);
+
+        //華SAKU食堂
+        const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
+        const material_SAKU = new THREE.MeshStandardMaterial({
+          color: 0x800000
+        });
+        const obj_SAKU = new THREE.Mesh(geometry_SAKU, material_SAKU); // 物体（形状,質感）
+        obj_SAKU.position.set(-57, 6, -43.5); //11.5
+        mainground.add(obj_SAKU); // シーンに物体を追加（接続
+
+        //看護科学館
+        const geometry_N = new THREE.BoxGeometry(14, 18, 12); //直方体x,y,z　geometry：形　material：質感
+        const material_N = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/	第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj_N = new THREE.Mesh(geometry_N, material_N); // 物体（形状,質感）
+        obj_N.position.set(-54, 9, -53.5); //11.5
+        mainground.add(obj_N); // シーンに物体を追加（接続
+
+        //総合心理科学館
+        const geometry_PS = new THREE.BoxGeometry(8, 18, 9); //直方体x,y,z　geometry：形　material：質感
+        const material_PS = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/	第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj_PS = new THREE.Mesh(geometry_PS, material_PS); // 物体（形状,質感）
+        obj_PS.position.set(-42.5, 9, -45.5); //11.5
+        mainground.add(obj_PS); // シーンに物体を追加（接続
+
+        // 体育研究棟
+        const geometry_G = new THREE.BoxGeometry(7, 12, 14); //直方体x,y,z　geometry：形　material：質感
+        const material_G = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj_G = new THREE.Mesh(geometry_G, material_G); // 物体（形状,質感）
+        obj_G.position.set(-56, 6, 20); //11.5
+        mainground.add(obj_G);
+
+        //コンビニ
+        const fanShape = new THREE.Shape();
+        const centerX = 0,
+          centerY = 0;
+        const radius = 15;
+        const startAngle = Math.PI; // 180度
+        const endAngle = Math.PI * 1.5; // 270度
+
+        fanShape.moveTo(centerX, centerY);
+        fanShape.absarc(centerX, centerY, radius, startAngle, endAngle, false);
+        fanShape.lineTo(centerX, centerY);
+
+        const extrudeSettings = {
+          depth: 12, // 高さ
+          bevelEnabled: false
+        };
+
+        const fanGeometry = new THREE.ExtrudeGeometry(fanShape, extrudeSettings);
+        const fanMaterial = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const fanBuilding = new THREE.Mesh(fanGeometry, fanMaterial);
+
+        // 位置調整
+        fanBuilding.position.set(68, 1, 33);
+        fanBuilding.rotation.x = -Math.PI / 2;
+
+        mainground.add(fanBuilding);
+
+        // 修正箇所１：アニメーションデータ
+        var positionKeyframeTrackJSON = {
+          name: '.position',
+          type: 'vector',
+          times: [0, 1, 2, 3, 4, 5],
+          // 6つの時間点に対応する18個の数値を設定 (最後の座標を複製)
+          values: [-90, 1.5, -50, 0, 1.5, -50, 0, 1.5, 0.8, 50, 1.5, 0.4, 50, 1.5, 55, 50, 1.5, 55]
+        };
+
+        var rotationKeyframeTrackJSON = {
+          name: '.rotation[y]',
+          type: 'number',
+          times: [0, 5],
+          values: [0, -Math.PI / 2],
+          interpolation: THREE.InterpolateSmooth
+        };
+
+        var clipJSON = {
+          duration: 5,
+          tracks: [positionKeyframeTrackJSON, rotationKeyframeTrackJSON]
+        };
+
+        //var clip = THREE.AnimationClip.parse(clipJSON);
+        //var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
+        //var action = mixer.clipAction(clip);
+        //action.play();
+
+        /*// アニメーションループ
+        function animate() {
+          requestAnimationFrame(animate);
+
+          // 電車の移動処理
+          const delta = clock.getDelta(); // 経過時間を取得
+          train.position.x += trainDirection * trainSpeed * delta;
+
+          // 端に到達したら反転
+          if (train.position.x > trackLength / 2 - 20) {
+            trainDirection = -1;
+          } else if (train.position.x < -trackLength / 2 + 20) {
+            trainDirection = 1;
+          }
+
+          // マウス制御更新
+          controls.update();
+
+          // レンダリング
+          renderer.render(scene, camera);
+        }
+
+        const clock = new THREE.Clock(); // 経過時間管理*/
+        animate();
+      }
+      window.onload = init; // 実行ウィンドウが開始したらinitを実施（固定）
+      //]]>
+    </script>
+  </head>
+  <body bgcolor="pink">
+    <h1>情報数学</h1>
+    <h3>年クラス番号　氏名</h3>
+    <canvas id="canvassample" width="960" height="540"></canvas>
+  </body>
+</html>
