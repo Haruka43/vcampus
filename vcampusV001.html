@@ -174,7 +174,8 @@
           train.add(car);
         }
 
-        train.position.set(-2000, 15, -90); // 線路に配置
+        // 初期位置だけx=400
+        train.position.set(-400, 15, -90); // ←ここを変更
         mainground.add(train);
 
         let trainDirection = 1; // 1は右方向、-1は左方向
