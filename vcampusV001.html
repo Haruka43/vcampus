@@ -611,7 +611,28 @@
 
         //音楽館
         const geometryM = new THREE.BoxGeometry(17, 20, 8); //直方体x,y,z　geometry：形　material：質感
-        const materialM = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialM = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/音楽館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/音楽館正面.png')
+          }) //裏面
+        ];
         const objM = new THREE.Mesh(geometryM, materialM); // 物体（形状,質感）
         objM.position.set(38, 10, 56); //11.5
         mainground.add(objM); // シーンに物体を追加（接続）
