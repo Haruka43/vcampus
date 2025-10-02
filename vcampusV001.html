@@ -604,7 +604,28 @@
 
         //東館
         const geometry34 = new THREE.BoxGeometry(9, 35, 13);
-        const material34 = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const material34 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/東館側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/東館側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/公江記念講堂の壁正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/江記念講堂の壁正面.png')
+          }) //裏面
+        ];
         const higasi = new THREE.Mesh(geometry34, material34); // 物体（形状,質感）
         higasi.position.set(62, 17.5, 17); //11.5
         mainground.add(higasi); //
