@@ -187,7 +187,28 @@
 
         //第2体育館
         const geometryG2 = new THREE.BoxGeometry(23, 20, 11); //直方体x,y,z　geometry：形　material：質感
-        const materialG2 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 }); //第一体育館
+        const materialG2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第二体育館屋根.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
         const objG2 = new THREE.Mesh(geometryG2, materialG2); // 物体（形状,質感）
         objG2.position.set(-60 + 11.5, 10, 1 + 5.5); //11.5
         mainground.add(objG2); // シーンに物体を追加（接続）
@@ -617,7 +638,28 @@
 
         //南館S
         const geometryS = new THREE.BoxGeometry(12, 20, 15); //直方体x,y,z　geometry：形　material：質感
-        const materialS = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const materialS = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/KM.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png'),
+            transparents: true,
+            opacty: 0
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/南館正面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/南館正面.png')
+          }) //裏面
+        ];
         const objS = new THREE.Mesh(geometryS, materialS); // 物体（形状,質感）
         objS.position.set(14, 10, 44.5); //11.5
         mainground.add(objS); // シーンに物体を追加（接続）
