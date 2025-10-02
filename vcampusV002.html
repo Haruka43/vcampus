@@ -45,37 +45,9 @@
         const directionalLight = new THREE.DirectionalLight(0xffffff); // 平行光源 太陽光
         directionalLight.position.set(1, 1, 1); // 光源の位置を設置（原点方向）
         scene.add(directionalLight); // シーンに光源を追加  add:結ぶ
-        const ambientlight = new THREE.AmbientLight(0xffffff, 0.4); //環境光(色,強さ)
+        const ambientlight = new THREE.AmbientLight(0xffffff, 0.6); //環境光(色,強さ)
         scene.add(ambientlight);
         //scene.add(camera);
-
-        /*const renderer = new THREE.WebGLRenderer({
-          // レンダラー（投影計算）を作成
-          canvas: document.querySelector('#canvassample')
-        });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(width, height);
-        renderer.setClearColor(0xafeeee); // 背景色
-
-        const scene = new THREE.Scene(); // シーングラフのルートを生成
-
-        const loader = new THREE.TextureLoader();
-        // 画像がない場合を考慮し、コメントアウトまたは実際のパスを指定してください
-        // loader.load('img/sky.jpg', function (texture) {
-        //   scene.background = texture;
-        // }); // 背景画像を読み込む
-
-        const camera = new THREE.PerspectiveCamera(45, width / height); // カメラを生成
-        camera.position.set(0, 10, +241); // カメラ（視点）の位置（2.41m）を設置×100
-        const controls = new THREE.OrbitControls(camera, renderer.domElement); // マウスによる回転制御
-        controls.enableDamping = true; // マウス制御の設定
-        controls.dampingFactor = 0.2; // マウス制御の設定
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff); // 平行光源 太陽光
-        directionalLight.position.set(1, 1, 1); // 光源の位置を設置（原点方向）
-        scene.add(directionalLight); // シーンに光源を追加  add:結ぶ
-        const ambientlight = new THREE.AmbientLight(0xffffff, 0.4); //環境光(色,強さ)
-        scene.add(ambientlight);*/
 
         const mainground = new THREE.Group(); // グループを作成
         mainground.scale.set(1, 0.75, 1); // グループのスケールを設定
@@ -107,12 +79,12 @@
         ];*/
 
         const rotations = [
+          new THREE.Quaternion() //Quarenionごとに秒数が変わる。これは0秒時のquarenion
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2) //0秒時の角度　(y軸回転90度  -Math.PI/2)東西南北
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)), //0秒時の角度 (x軸回転0度  0＝水平)　上下
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
-          new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)), //15度下
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
@@ -129,7 +101,7 @@
         var positionKF = new THREE.VectorKeyframeTrack(
           '.position',
           [0, 1, 2, 3, 4, 5],
-          [-500, 50, -100, -300, 50, -100, -100, 150, -100, -10, 30, -100, -2, 20, -30, 0, 5, 0],
+          [-800, 10, -80, -300, 30, -80, -100, 150, -100, -10, 30, -100, -2, 20, -30, 0, 5, 0],
           THREE.InterpolateSmooth
         );
         var quaternionKF = new THREE.QuaternionKeyframeTrack(
@@ -144,6 +116,7 @@
         var clip = new THREE.AnimationClip('Action', 5, [positionKF, quaternionKF]);
         var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
         var action = mixer.clipAction(clip);
+        action.repetitions = 1;
         action.play();
 
         // 修正箇所２：Clockの追加
