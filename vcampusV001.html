@@ -1100,6 +1100,19 @@
         staircaseRight.position.set(-55, 1, -22); // 歩道橋の右端に接続するように配置
         mainground.add(staircaseRight);
 
+        //支柱
+        const pillarLeft = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        // 橋の左端の下に配置
+        pillarLeft.position.set(-70, 5, -39.2);
+        mainground.add(pillarLeft);
+
+        const pillarRight = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        // 橋の右端の下に配置
+        pillarRight.position.set(-70, 5, -21.2);
+        mainground.add(pillarRight);
+
+
+
         //華SAKU食堂
         const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
         const material_SAKU = new THREE.MeshStandardMaterial({
