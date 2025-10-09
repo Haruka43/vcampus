@@ -255,6 +255,13 @@
         objRoad43.rotation.x = -Math.PI / 2;
         mainground.add(objRoad43); // シーンに物体を追加（接続）
 
+        const gd3 = new THREE.PlaneGeometry(400, 4.5, 1, 27.5); //平面w,h,dw,dh
+        const md3 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+        const objRoad3 = new THREE.Mesh(g43, m43); // 2つ目の物体もsceneに付け加えた
+        objRoad3.position.set(0, 1.2, 63);
+        objRoad3.rotation.x = -Math.PI / 2;
+        mainground.add(objRoad3); // シーンに物体を追加（接続）
+
         //L2
         const geometryd3 = new THREE.BoxGeometry(9, 20, 18);
         const materiald3 = [
