@@ -926,6 +926,32 @@
         obj_H1.position.set(56, 12, 56);
         mainground.add(obj_H1); // シーンに物体を追加（接続）
 
+        //生活環境２号館（H2）
+        const geometry_H2 = new THREE.BoxGeometry(17, 24, 15); // 横, 高さ, 縦
+        const material_H2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png') // H1と同じテクスチャを仮で使用
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png') // H1と同じテクスチャを仮で使用
+          }) //裏面
+        ];
+        const obj_H2 = new THREE.Mesh(geometry_H2, material_H2); // 物体（形状,質感）
+        obj_H2.position.set(56, 12, 73); // 位置を調整
+        mainground.add(obj_H2); // シーンに物体を追加（接続）
+
         //学院記念館(MS)
         const geometry_MS = new THREE.BoxGeometry(9, 8, 6); //直方体x,y,z　geometry：形　material：質感
         const material_MS = [
@@ -1288,7 +1314,9 @@
         };
 
         const fanGeometry = new THREE.ExtrudeGeometry(fanShape, extrudeSettings);
-        const fanMaterial = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const fanMaterial = new THREE.MeshStandardMaterial({
+          map: new THREE.TextureLoader().load('img/クリステリア館.png') // ← 'img/' を追加
+        });
         const fanBuilding = new THREE.Mesh(fanGeometry, fanMaterial);
 
         // 位置調整
