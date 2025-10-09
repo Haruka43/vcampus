@@ -1138,9 +1138,26 @@
 
         //華SAKU食堂
         const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
-        const material_SAKU = new THREE.MeshStandardMaterial({
-          color: 0x800000
-        });
+        const material_SAKU = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }) //裏面
+        ];
         const obj_SAKU = new THREE.Mesh(geometry_SAKU, material_SAKU); // 物体（形状,質感）
         obj_SAKU.position.set(-57, 6, -43.5); //11.5
         mainground.add(obj_SAKU); // シーンに物体を追加（接続
