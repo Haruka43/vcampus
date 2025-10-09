@@ -53,67 +53,103 @@
         mainground.scale.set(1, 0.75, 1); // グループのスケールを設定
         scene.add(mainground); // シーンにグループを追加
 
-        /*const rotationsX = [
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0),0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),-Math.PI/6),//0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),0),// 0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),-Math.PI/6),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(),0),// -Math.PI/6),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0,0).normalize(), 0),
-        ];
-        const rotationsY = [
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-Math.PI/2),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),//0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0).normalize(),-Math.PI/2)
-        ];
-        const rotationsZ = [
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),-Math.PI/6),//0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),0),// 0),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),-Math.PI/6),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(),0),// -Math.PI/6),
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1).normalize(), 0),
-        ];*/
+
+
+        // カメラ位置
+        // 正門 0, 5, 0
+        var positionKF = new THREE.VectorKeyframeTrack(
+          '.position',
+          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
+          [-800, 10, -90, 
+            -300, 30, -90, 
+            -100, 150, -100, 
+            -50, 100, -100, 
+            -2, 80, -100, 
+            100, 80, -90,
+            140, 80, 0,
+            100, 80, 110,
+            0, 80, 130,
+            -100, 80, 110,
+            -140, 60, 0,
+            -100, 40, -30,
+            -10, 15, -40,
+            -5, 10, -14,
+            3, 5, -8],
+          THREE.InterpolateSmooth
+        );
 
         const rotations = [
-          new THREE.Quaternion() //Quarenionごとに秒数が変わる。これは0秒時のquarenion
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2) //0秒時の角度　(y軸回転90度  -Math.PI/2)東西南北
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)), //0秒時の角度 (x軸回転0度  0＝水平)　上下
+          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)), //0秒時の角度 (x軸回転0度  0＝水平)　上下
+
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)), //15度下
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI/6)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)), 
+
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI / 4)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0),  -Math.PI / 6)),
+
+          //10
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI * 5/4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+          
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0),  -Math.PI / 6)),
+
+          //20
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
+
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
+
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0))
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI* 3/4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
         ];
-        var positionKF = new THREE.VectorKeyframeTrack(
-          '.position',
-          [0, 1, 2, 3, 4, 5],
-          [-800, 10, -80, -300, 30, -80, -100, 150, -100, -10, 30, -100, -2, 20, -30, 0, 5, 0],
-          THREE.InterpolateSmooth
-        );
+
         var quaternionKF = new THREE.QuaternionKeyframeTrack(
           '.quaternion',
-          [0, 1, 2, 3, 4, 5],
+          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28],
           rotations.map((q) => [q.x, q.y, q.z, q.w]).flat(),
           THREE.InterpolateSmooth
         );
         //var quaternionXKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsX.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
         //var quaternionZKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsZ.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
 
-        var clip = new THREE.AnimationClip('Action', 5, [positionKF, quaternionKF]);
+        var clip = new THREE.AnimationClip('Action', 28, [positionKF, quaternionKF]);
         var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
         var action = mixer.clipAction(clip);
         action.repetitions = 1;
