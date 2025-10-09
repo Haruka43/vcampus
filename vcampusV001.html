@@ -29,9 +29,9 @@
 
         const loader = new THREE.TextureLoader();
         // 画像がない場合を考慮し、コメントアウトまたは実際のパスを指定してください
-        // loader.load('img/sky.jpg', function (texture) {
-        //   scene.background = texture;
-        // }); // 背景画像を読み込む
+        loader.load('img/sky.jpg', function (texture) {
+          scene.background = texture;
+        }); // 背景画像を読み込む
 
         const camera = new THREE.PerspectiveCamera(45, width / height); // カメラを生成
         camera.position.set(0, 10, +241); // カメラ（視点）の位置（2.41m）を設置×100
