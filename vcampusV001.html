@@ -1285,6 +1285,32 @@
 
         mainground.add(fanBuilding);
 
+        // 食物栄養科学館
+        const geometry_F = new THREE.BoxGeometry(19, 21, 18); //直方体x,y,z　geometry：形　material：質感
+        const material_F = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/第一体育館正面タイル.png"),
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/第一体育館正面タイル.png"),
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/建物上部.png"),
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/第一体育館正面タイル.png"),
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/第一体育館正面タイル.png"),
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load("img/第一体育館正面タイル.png"),
+          }), //裏面
+        ];
+        const obj_F = new THREE.Mesh(geometry_F, material_F); // 物体（形状,質感）
+        obj_F.position.set(83.5, 10.5, 50); //11.5
+        mainground.add(obj_F);
+
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
           name: ".position",
