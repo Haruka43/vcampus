@@ -53,42 +53,27 @@
         mainground.scale.set(1, 0.75, 1); // グループのスケールを設定
         scene.add(mainground); // シーンにグループを追加
 
-
-
         // カメラ位置
         // 正門 0, 5, 0
         var positionKF = new THREE.VectorKeyframeTrack(
           '.position',
           [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38],
-          [-800, 10, -90, 
-            -300, 30, -90, 
-            -100, 150, -100, 
-            -50, 100, -100, 
-            -2, 80, -100, 
-            100, 80, -90,
-            140, 80, 0,
-            100, 80, 110,
-            0, 80, 130,
-            -100, 80, 110,
-            -140, 60, 0,
-            -100, 40, -30,
-            -10, 15, -40,
-            -5, 10, -14,
-            3, 5, -8,
-            30, 5, -5,
-            40, 5, 0,
-            40, 5, 10,
-            35, 5, 20,
-            30, 5, 30],
+          [
+            -800, 10, -90, -300, 30, -90, -100, 150, -100, -50, 100, -100, -2, 80, -100, 100, 80, -90, 140, 80, 0, 100,
+            80, 110, 0, 80, 130, -100, 80, 110, -140, 60, 0, -100, 40, -30, -10, 15, -40, -5, 10, -14, 3, 5, -8, 30, 5,
+            -5, 40, 5, 0, 40, 5, 10, 35, 5, 20, 30, 5, 30
+          ],
           THREE.InterpolateSmooth
         );
 
         const rotations = [
-          new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)), //0秒時の角度 (x軸回転0度  0＝水平)　上下
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)), //0秒時の角度 (x軸回転0度  0＝水平)　上下
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI/6)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)), 
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI / 6)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
 
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
@@ -100,36 +85,36 @@
 
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0),  -Math.PI / 6)),
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           //10
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI * 5/4)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), (-Math.PI * 5) / 4)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/4)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 4)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
-          
+
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), 0)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/4)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0),  -Math.PI / 6)),
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 4)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           //20
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 6)),
 
           new THREE.Quaternion()
@@ -137,33 +122,33 @@
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -Math.PI / 12)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI* 3/4)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), (-Math.PI * 3) / 4)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           //30
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI / 4)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
-          
+
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
             .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
-            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0))
         ];
 
         var quaternionKF = new THREE.QuaternionKeyframeTrack(
@@ -404,6 +389,13 @@
         objRoad43.position.set(0, 1.2, 31);
         objRoad43.rotation.x = -Math.PI / 2;
         mainground.add(objRoad43); // シーンに物体を追加（接続）
+
+        const gd3 = new THREE.PlaneGeometry(400, 4.5, 1, 27.5); //平面w,h,dw,dh
+        const md3 = new THREE.MeshStandardMaterial({ color: 0xd3d3d3 });
+        const objRoad3 = new THREE.Mesh(g43, m43); // 2つ目の物体もsceneに付け加えた
+        objRoad3.position.set(0, 1.2, 63);
+        objRoad3.rotation.x = -Math.PI / 2;
+        mainground.add(objRoad3); // シーンに物体を追加（接続）
 
         //L2
         const geometryd3 = new THREE.BoxGeometry(9, 20, 18);
@@ -1076,6 +1068,32 @@
         obj_H1.position.set(56, 12, 56);
         mainground.add(obj_H1); // シーンに物体を追加（接続）
 
+        //生活環境２号館（H2）
+        const geometry_H2 = new THREE.BoxGeometry(17, 24, 15); // 横, 高さ, 縦
+        const material_H2 = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物色デフォルト.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png') // H1と同じテクスチャを仮で使用
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/H1正面.png') // H1と同じテクスチャを仮で使用
+          }) //裏面
+        ];
+        const obj_H2 = new THREE.Mesh(geometry_H2, material_H2); // 物体（形状,質感）
+        obj_H2.position.set(56, 12, 73); // 位置を調整
+        mainground.add(obj_H2); // シーンに物体を追加（接続）
+
         //学院記念館(MS)
         const geometry_MS = new THREE.BoxGeometry(9, 8, 6); //直方体x,y,z　geometry：形　material：質感
         const material_MS = [
@@ -1275,11 +1293,39 @@
         staircaseRight.position.set(-55, 1, -22); // 歩道橋の右端に接続するように配置
         mainground.add(staircaseRight);
 
+        //支柱
+        const pillarLeft = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        // 橋の左端の下に配置
+        pillarLeft.position.set(-70, 5, -39.2);
+        mainground.add(pillarLeft);
+
+        const pillarRight = new THREE.Mesh(pillarGeometry, pillarMaterial);
+        // 橋の右端の下に配置
+        pillarRight.position.set(-70, 5, -21.2);
+        mainground.add(pillarRight);
+
         //華SAKU食堂
         const geometry_SAKU = new THREE.BoxGeometry(6, 12, 5); //直方体x,y,z　geometry：形　material：質感
-        const material_SAKU = new THREE.MeshStandardMaterial({
-          color: 0x800000
-        });
+        const material_SAKU = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/華サク食堂側面.png')
+          }) //裏面
+        ];
         const obj_SAKU = new THREE.Mesh(geometry_SAKU, material_SAKU); // 物体（形状,質感）
         obj_SAKU.position.set(-57, 6, -43.5); //11.5
         mainground.add(obj_SAKU); // シーンに物体を追加（接続
@@ -1366,6 +1412,32 @@
         obj_G.position.set(-56, 6, 20); //11.5
         mainground.add(obj_G);
 
+        //研究所棟
+        const geometry_I = new THREE.BoxGeometry(14, 20, 12); //直方体x,y,z　geometry：形　material：質感
+        const material_I = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/MM館.jpg')
+          }) //裏面
+        ];
+        const obj_I = new THREE.Mesh(geometry_I, material_I); // 物体（形状,質感）
+        obj_I.position.set(-71, 10, -20 + 5.5); //11.5
+        mainground.add(obj_I);
+
         //コンビニ
         const fanShape = new THREE.Shape();
         const centerX = 0,
@@ -1384,7 +1456,9 @@
         };
 
         const fanGeometry = new THREE.ExtrudeGeometry(fanShape, extrudeSettings);
-        const fanMaterial = new THREE.MeshStandardMaterial({ color: 0x800000 });
+        const fanMaterial = new THREE.MeshStandardMaterial({
+          map: new THREE.TextureLoader().load('img/クリステリア館.png') // ← 'img/' を追加
+        });
         const fanBuilding = new THREE.Mesh(fanGeometry, fanMaterial);
 
         // 位置調整
@@ -1392,6 +1466,32 @@
         fanBuilding.rotation.x = -Math.PI / 2;
 
         mainground.add(fanBuilding);
+
+        // 食物栄養科学館
+        const geometry_F = new THREE.BoxGeometry(19, 21, 18); //直方体x,y,z　geometry：形　material：質感
+        const material_F = [
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //右側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //左側面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/建物上部.png')
+          }), //上部
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //底面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }), //正面
+          new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('img/第一体育館正面タイル.png')
+          }) //裏面
+        ];
+        const obj_F = new THREE.Mesh(geometry_F, material_F); // 物体（形状,質感）
+        obj_F.position.set(83.5, 10.5, 50); //11.5
+        mainground.add(obj_F);
 
         // 修正箇所１：アニメーションデータ
         var positionKeyframeTrackJSON = {
