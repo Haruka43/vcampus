@@ -57,7 +57,7 @@
         // 正門 0, 5, 0
         var positionKF = new THREE.VectorKeyframeTrack(
           '.position',
-          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50],
+          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56],
           [
             -800, 10, -90, 
             -300, 30, -90, 
@@ -82,9 +82,12 @@
             0, 5, 30,
             -5, 5, 0,
             -30, 5, 0,
-            -40, 5, -10,
-            -60, 5, -10,
-            -100, 5, -10
+            -40, 5, -5,
+            -60, 5, -5,
+            -60, 10, -5,
+            -50, 30, -5,
+            -25, 30, -20,
+            -25, 30, -20
           ],
           THREE.InterpolateSmooth
         );
@@ -162,7 +165,7 @@
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2 - Math.PI / 4)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
@@ -175,41 +178,53 @@
 
           //40
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
           
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI/ 2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
 
           //50
           new THREE.Quaternion()
-            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI)
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0)),
+
+          new THREE.Quaternion()
+            .setFromAxisAngle(new THREE.Vector3(0, 1, 0), -Math.PI/2)
             .multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0))
         ];
 
         var quaternionKF = new THREE.QuaternionKeyframeTrack(
           '.quaternion',
-          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50],
+          [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56],
           rotations.map((q) => [q.x, q.y, q.z, q.w]).flat(),
           THREE.InterpolateSmooth
         );
         //var quaternionXKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsX.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
         //var quaternionZKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2,3,4,5], rotationsZ.map(q => [q.x, q.y, q.z, q.w]).flat(),THREE.InterpolateSmooth);
 
-        var clip = new THREE.AnimationClip('Action', 50, [positionKF, quaternionKF]);
+        var clip = new THREE.AnimationClip('Action', 56, [positionKF, quaternionKF]);
         var mixer = new THREE.AnimationMixer(camera); //①移動対象を視点に
         var action = mixer.clipAction(clip);
         action.repetitions = 1;
